@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Note:
+  = @entry.note
+%p
+  %b Score:
+  = @entry.score
+
+= link_to 'Edit', edit_entry_path(@entry)
+\|
+= link_to 'Back', entries_path

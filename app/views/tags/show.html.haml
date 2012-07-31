@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Description:
+  = @tag.description
+%p
+  %b Classification:
+  = @tag.classification
+
+= link_to 'Edit', edit_tag_path(@tag)
+\|
+= link_to 'Back', tags_path
