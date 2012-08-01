@@ -22,10 +22,10 @@ class UsersController < ApplicationController
       redirect_to users_url
     end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
+    #respond_to do |format|
+    #  format.html # show.html.erb
+    #  format.json { render json: @user }
+    #end
   end
 
   # GET /users/new
