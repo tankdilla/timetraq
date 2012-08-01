@@ -14,18 +14,13 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    
-    if @user
-      redirect_to user_activities_url(@user)
-    else
-      flash[:notice] = "User not found"
-      redirect_to users_url
-    end
+  
+    @entries = @user.current_day_entries
 
-    #respond_to do |format|
-    #  format.html # show.html.erb
-    #  format.json { render json: @user }
-    #end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
   end
 
   # GET /users/new

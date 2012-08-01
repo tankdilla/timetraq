@@ -4,6 +4,6 @@ class Entry
   field :score, type: Integer
 
   embedded_in :activity
-  embeds_many :associated_durations
+  embeds_one :associated_duration
   embeds_many :tags
 end

@@ -8,4 +8,8 @@ class User
   def current_day_activities
     activities
   end
+
+  def current_day_entries
+    activities.collect{|a| a.entries}.flatten
+  end
 end

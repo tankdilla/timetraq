@@ -4,8 +4,8 @@ class Activity
   field :priority, type: Integer
 
   embedded_in :user
-  embeds :entries
-  embeds :tags
-  embeds :associated_durations
+  embeds_many :entries
+  embeds_many :tags
+  embeds_one :associated_duration
   
 end
