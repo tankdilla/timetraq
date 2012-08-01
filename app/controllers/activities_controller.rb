@@ -1,8 +1,10 @@
 class ActivitiesController < ApplicationController
+  before_filter :find_user
+  
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    @activities = @user.current_day_activities
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,5 +81,9 @@ class ActivitiesController < ApplicationController
       format.html { redirect_to activities_url }
       format.json { head :no_content }
     end
+  end
+  
+  def find_user
+    @user = User.find(params[:user_id])
   end
 end
