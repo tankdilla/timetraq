@@ -7,8 +7,15 @@
   %b Email:
   = @user.email
 
+%ul
+  - @activities.each do |activity|
+    %li
+      = link_to "Log entry for #{activity.description}", new_user_activity_entry_path(@user, activity)
+
 = link_to 'Edit', edit_user_path(@user)
 \|
 = link_to 'Back', users_path
+\|
+= link_to 'Show Activities', user_activities_path(@user)
 \|
 = link_to 'Add Activity', new_user_activity_path(@user)

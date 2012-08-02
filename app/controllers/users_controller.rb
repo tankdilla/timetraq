@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   
     @entries = @user.current_day_entries
+    @activities = @user.activities || []
 
     respond_to do |format|
       format.html # show.html.erb

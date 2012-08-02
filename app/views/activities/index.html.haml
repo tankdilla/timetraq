@@ -12,10 +12,12 @@
     %tr
       %td= activity.description
       %td= activity.priority
-      %td= link_to 'Show', activity
-      %td= link_to 'Edit', edit_activity_path(activity)
-      %td= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', user_activity_path(@user, activity)
+      %td= link_to 'Edit', edit_user_activity_path(@user, activity)
+      %td= link_to 'Destroy', user_activity_path(@user, activity), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
 = link_to 'New Activity', new_user_activity_path(@user)
+\|
+= link_to 'Back to User', user_path(@user)

@@ -42,11 +42,11 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.json
   def create
-    @activity = Activity.new(params[:activity])
+    @activity = @user.activities.create!(params[:activity])
 
     respond_to do |format|
-      if @activity.save
-        format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
+      if @activity
+        format.html { redirect_to [@user, @activity], notice: 'Activity was successfully created.' }
         format.json { render json: @activity, status: :created, location: @activity }
       else
         format.html { render action: "new" }
@@ -74,11 +74,11 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1
   # DELETE /activities/1.json
   def destroy
-    @activity = Activity.find(params[:id])
+    @activity = @user.activities.find(params[:id])
     @activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to activities_url }
+      format.html { redirect_to user_activities_url(@user) }
       format.json { head :no_content }
     end
   end

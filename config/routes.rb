@@ -2,16 +2,17 @@ Timetraq::Application.routes.draw do
   
   resources :users do
     
-    resources :entries do
     resources :activities do
-       
+         
+      resources :entries
       resources :tags
       
     end   
      
+    resources :tags
   end
 
- 
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
