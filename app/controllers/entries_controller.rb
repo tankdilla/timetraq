@@ -1,4 +1,6 @@
 class EntriesController < ApplicationController
+  before_filter :find_user, :find_activity
+  
   # GET /entries
   # GET /entries.json
   def index
@@ -79,5 +81,18 @@ class EntriesController < ApplicationController
       format.html { redirect_to entries_url }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  def find_user
+    @user = User.find(params[:user_id])
+  end
+  
+  def find_activity
+    @activity = Activity.find(params[:activity_id])
+  end
+  
+  def setup_new
+    @activities = @user.activities
   end
 end
