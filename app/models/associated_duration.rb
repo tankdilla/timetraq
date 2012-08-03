@@ -11,5 +11,8 @@ class AssociatedDuration
   embedded_in :activity
   embedded_in :entry
   embedded_in :tag
-
+  
+  def duration_descripiton
+    ""
+  end
 end

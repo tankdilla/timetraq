@@ -89,7 +89,9 @@ class EntriesController < ApplicationController
   end
   
   def find_activity
-    @activity = Activity.find(params[:activity_id])
+    if @user
+      @activity = @user.activities.find(params[:activity_id])
+    end
   end
   
   def setup_new

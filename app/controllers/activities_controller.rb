@@ -15,7 +15,8 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    @activity = Activity.find(params[:id])
+    #@activity = Activity.find(params[:id]i)
+    @activity = @user.activities.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,7 +37,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-    @activity = Activity.find(params[:id])
+    @activity = @user.activities.find(params[:id])
   end
 
   # POST /activities
@@ -58,7 +59,7 @@ class ActivitiesController < ApplicationController
   # PUT /activities/1
   # PUT /activities/1.json
   def update
-    @activity = Activity.find(params[:id])
+    @activity = @user.activities.find(params[:id])
 
     respond_to do |format|
       if @activity.update_attributes(params[:activity])

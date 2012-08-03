@@ -7,6 +7,17 @@
   %b Priority:
   = @activity.priority
 
-= link_to 'Edit', edit_activity_path(@activity)
+- if !@activity.entries.empty?
+  %li
+    - @activity.entries.each do |e|
+      = e.note
+      , Score:
+      = e.score
+      , Duration:
+      = e.associated_duration.duration_description
+
+= link_to 'Edit', edit_user_activity_path(@user,@activity)
 \|
-= link_to 'Back', activities_path
+= link_to 'Back', user_activities_path(@user)
+\|
+= link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)

@@ -34,7 +34,7 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
 
 gem "cucumber-rails", :group => [:development, :test]
 gem "capybara", :group => [:development, :test]

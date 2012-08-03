@@ -5,5 +5,4 @@ class Entry
 
   embedded_in :activity
   embeds_one :associated_duration
-  embeds_many :tags
 end

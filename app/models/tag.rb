@@ -5,5 +5,6 @@ class Tag
 
   embedded_in :activity
   embedded_in :entry
+  has_and_belongs_to_many :tags
   embeds_one :associated_duration
 end
