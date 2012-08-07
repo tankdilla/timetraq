@@ -5,7 +5,6 @@ class Activity
 
   embedded_in :user
   embeds_many :entries
-  #has_and_belongs_to_many :tags
-  embeds_one :associated_duration
+  has_and_belongs_to_many :tags
   
 end

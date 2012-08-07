@@ -8,8 +8,7 @@ class AssociatedDuration
   field :end_time, type: Time
 
   scope :today, where.gte(start_time: Date.today)   #simplifying this until I learn mongoid's
-  embedded_in :activity
-  embedded_in :entry
+    
   embedded_in :tag
   
   def duration_descripiton

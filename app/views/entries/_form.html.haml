@@ -12,5 +12,14 @@
   .field
     = f.label :score
     = f.number_field :score
+  .field
+    = label_tag :start_time
+    = text_field_tag :start_time
+  .field
+    = label_tag :number_of_hours
+    = text_field :number_of_hours
+  .field
+    = label_tag :number_of_minutes
+    = text_field :number_of_minutes
   .actions
     = f.submit 'Save'
