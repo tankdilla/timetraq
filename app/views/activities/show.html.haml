@@ -1,7 +1,7 @@
 %p#notice= notice
 
 %p
-  %b Description:
+  %b Activity:
   = @activity.description
 %p
   %b Default score:
@@ -10,8 +10,12 @@
 = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
 
 %p
+= link_to 'Home', user_path(@user)
+\|
 = link_to 'Edit', edit_user_activity_path(@user,@activity)
 \|
-= link_to 'Back', user_activities_path(@user)
+= link_to 'Destroy', user_activity_path(@user, @activity), :confirm => 'Are you sure?', :method => :delete
+\|
+= link_to 'Activity List', user_activities_path(@user)
 \|
 = link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)

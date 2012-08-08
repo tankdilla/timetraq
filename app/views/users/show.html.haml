@@ -1,15 +1,12 @@
 %p#notice= notice
 
 %p
-  %b Name:
-  = @user.name
-%p
-  %b Email:
-  = @user.email
+  %b
+    = "#{@user.name} (#{@user.email})"
 
 %p
-  Showing summary for 
-  = format_datetime(session[:day])
+  Summary for 
+  = format_date(session[:day])
   (link to Change Date)
 
 - if !@day_entries.blank?
