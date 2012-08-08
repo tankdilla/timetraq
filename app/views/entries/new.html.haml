@@ -1,5 +1,9 @@
 %h1 New entry
 
+%p
+  Activity: 
+  = @activity.description
+
 = render 'form'
 
-= link_to 'Back', user_activity_entries_path(@user, @activity)
+= link_to 'Back', user_activity_path(@user, @activity)

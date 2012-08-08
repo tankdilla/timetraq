@@ -4,18 +4,20 @@
   %b Description:
   = @activity.description
 %p
-  %b Priority:
+  %b Default score:
   = @activity.priority
 
 - if !@activity.entries.empty?
+  Recent activity entries logged:
   %li
     - @activity.entries.each do |e|
-      = e.note
+      = link_to e.start_time, user_activity_entry_path(@user, @activity, e)
+      - if e.note
+        = link_to e.note, user_activity_entry_path(@user, @activity, e)
       , Score:
       = e.score
-      , Duration:
-      = e.associated_duration.duration_description
 
+%p
 = link_to 'Edit', edit_user_activity_path(@user,@activity)
 \|
 = link_to 'Back', user_activities_path(@user)

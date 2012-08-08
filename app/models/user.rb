@@ -4,7 +4,6 @@ class User
   field :email, type: String
 
   embeds_many :activities
-  embeds_many :tags
   
   def current_day_activities
     activities

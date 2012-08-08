@@ -36,8 +36,8 @@ gem 'jquery-rails'
 # To use debugger
 gem 'debugger'
 
-gem "cucumber-rails", :group => [:development, :test]
-gem "capybara", :group => [:development, :test]
+gem "cucumber-rails", :group => [:test]
+gem "capybara", :group => [:test]
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "bson_ext"

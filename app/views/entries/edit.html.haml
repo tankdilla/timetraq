@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @entry
+= link_to 'Show', [@user, @activity, @entry]
 \|
-= link_to 'Back', entries_path
+= link_to 'Back', user_activity_path(@user, @activity)

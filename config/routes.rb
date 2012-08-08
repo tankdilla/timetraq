@@ -1,5 +1,7 @@
 Timetraq::Application.routes.draw do
   
+  resources :projects
+
   resources :users do
     
     resources :activities do
