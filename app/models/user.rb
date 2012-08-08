@@ -8,6 +8,7 @@ class User
   embeds_many :activities
 
   def day_entries(date=Date.today)
-    activities.collect{|a| a.entries.collect{|e| e if e.start_time.to_date == date}}.compact.flatten
+    #activities.collect{|a| a.entries.collect{|e| e if e.start_time.to_date == date}}.compact.flatten
+    activities.collect{|a| a.entries.from_today.entries}.flatten
   end
 end
