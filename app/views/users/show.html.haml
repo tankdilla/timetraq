@@ -9,6 +9,10 @@
   = format_date(session[:day])
   (link to Change Date)
 
+%p
+  Score for today:
+  = @user.day_score
+
 - if !@day_entries.blank?
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@day_entries}
     
