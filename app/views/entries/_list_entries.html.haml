@@ -1,0 +1,14 @@
+
+- if !entries.empty?
+  Recent activity entries logged:
+  %ul
+    - entries.each do |e|
+      %li
+        = "#{e.activity.description}: "
+        - if e.note
+          = e.note
+        = link_to format_datetime(e.start_time), user_activity_entry_path(e.activity.user, e.activity, e)
+        , Score:
+        = e.score
+        , 
+        = e.duration_string

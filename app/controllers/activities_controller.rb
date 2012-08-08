@@ -4,7 +4,7 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = @user.current_day_activities
+    @activities = @user.activities
 
     respond_to do |format|
       format.html # index.html.erb

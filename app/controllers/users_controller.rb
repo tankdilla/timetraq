@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    
+    session[:day] = Date.today
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,8 +16,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-  
-    @entries = @user.current_day_entries
+    
+    @day_entries = @user.day_entries(session[:day])
     @activities = @user.activities || []
 
     respond_to do |format|

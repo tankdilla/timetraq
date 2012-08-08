@@ -1,24 +1,25 @@
 %p#notice= notice
 
 %p
-  %b Note:
-  = @entry.note
+  %b Start Time:
+  = format_datetime @entry.start_time
+
+- if !@entry.end_time.nil?
+  %p
+    %b End Time:
+    = @entry.end_time
+%p
+  %b Duration
+  = @entry.duration_string
+
+- if !@entry.note.blank?
+  %p
+    %b Note:
+    = @entry.note
 %p
   %b Score:
   = @entry.score
-%p
-  %b Start Time:
-  = @entry.start_time
-%p
-  %b End Time:
-  = @entry.end_time
-%p
-  %b Duration
-  = @entry.hours
-  hours, 
-  = @entry.minutes
-  minutes
-
+  
 = link_to 'Edit', edit_user_activity_entry_path(@user, @activity, @entry)
 \|
 = link_to 'Back', user_activity_path(@user, @activity)

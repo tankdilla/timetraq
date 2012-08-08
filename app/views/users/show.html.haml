@@ -8,12 +8,21 @@
   = @user.email
 
 %p
-  Log activity entry for:
-  
-  %ul
-    - @activities.each do |activity|
-      %li
-        = link_to "#{activity.description}", new_user_activity_entry_path(@user, activity)
+  Showing summary for 
+  = format_datetime(session[:day])
+  (link to Change Date)
+
+- if !@day_entries.blank?
+  = render :partial => 'entries/list_entries', :locals=>{:entries=>@day_entries}
+    
+- if !@activities.blank?
+  %p
+    Log activity entry for:
+    
+    %ul
+      - @activities.each do |activity|
+        %li
+          = link_to "#{activity.description}", new_user_activity_entry_path(@user, activity)
 
 = link_to 'Edit', edit_user_path(@user)
 \|
