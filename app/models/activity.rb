@@ -2,8 +2,10 @@ class Activity
   include Mongoid::Document
   field :description, type: String
   field :_id, type: String#, default: ->{ description } #set this to have a custom id, prettier url 
-  
   field :priority, type: Integer
+  
+  field :goal_score
+  field :goal_duration
 
   embedded_in :user
   embeds_many :entries

@@ -16,7 +16,8 @@ class GoalsController < ApplicationController
   # GET /goals/1.json
   def show
     @goal = @user.goals.find(params[:id])
-    @activities = @goal.activities
+    @tracked_activities = @goal.tracked_activities
+    @untracked_activities = @goal.untracked_activities
 
     respond_to do |format|
       format.html # show.html.erb
@@ -62,6 +63,11 @@ class GoalsController < ApplicationController
   # PUT /goals/1.json
   def update
     @goal = @user.goals.find(params[:id])
+    
+    if params[:activity_id]
+      user_activity = @user.activities.find(params[:activity_id])
+      @goal.tracked_activity_ids << user_activity.id #may only want to store the id
+    end
 
     respond_to do |format|
       if @goal.update_attributes(params[:goal])

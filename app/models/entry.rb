@@ -1,5 +1,7 @@
 class Entry
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
+  
   field :note, type: String
   field :score, type: Integer
   field :minutes, type: Integer

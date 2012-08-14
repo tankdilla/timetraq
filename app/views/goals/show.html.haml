@@ -3,18 +3,27 @@
 %p
   %b Name:
   = @goal.name
-%p
-  %b Target completion date:
-  = @goal.target_completion_date
 
-- if !@activities.blank?
+- if !@goal.summary.blank?
   %p
-    Add goal entry for:
-    
+    %b Summary:
+    = @goal.summary
+
+- if !@goal.target_completion_date.blank?
+  %p
+    %b Target completion date:
+    = @goal.target_completion_date
+
+%p
+  %b Goal Type:
+  = @goal.goal_type
+
+%p
+  Currently tracking activities:
+  - @tracked_activities.each do |activity|
     %ul
-      - @activities.each do |activity|
-        %li
-          = link_to "#{activity.description}", new_user_goal_activity_entry_path(@user, @goal, activity)
+      = activity.description
+      = render :partial => 'entries/list_entries', :locals=>{:entries=>activity.entries}
 
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
 \|
