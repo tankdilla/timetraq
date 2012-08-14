@@ -4,17 +4,8 @@
   %b Name:
   = @project.name
 %p
-  %b Description:
-  = @project.description
-%p
-  %b Start time:
-  = @project.start_time
-%p
-  %b Days:
-  = @project.days
-%p
-  %b Hours:
-  = @project.hours
+  %b Target completion date:
+  = @project.target_completion_date
 
 = link_to 'Edit', edit_project_path(@project)
 \|

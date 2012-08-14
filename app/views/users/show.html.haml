@@ -6,12 +6,25 @@
 
 %p
   Summary for 
-  = format_date(session[:day])
+  = format_date @day
   (link to Change Date)
-
+        
 %p
   Score for today:
   = @user.day_score
+
+- if !@day_target.nil?
+  %p
+    Your target score for today is:
+    = @day_target.score
+
+  %p
+    Based on your preferences and goals, this score accounts for the following:
+  
+  %ul
+    - @day_target.target_activities.each do |a|
+      %li
+        = a.activity.description
 
 - if !@day_entries.blank?
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@day_entries}

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "projects/show" do
+describe "goals/show" do
   before(:each) do
-    @project = assign(:project, stub_model(Project,
+    @goal = assign(:goal, stub_model(Goal,
       :name => "Name"
     ))
   end

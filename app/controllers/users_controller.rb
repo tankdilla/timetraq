@@ -17,7 +17,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     
-    @day_entries = @user.day_entries(session[:day])
+    @day = session[:day]
+    @day_entries = @user.day_entries(@day)
+    @day_target = @user.day_target(@day)
+    
     @activities = @user.activities || []
 
     respond_to do |format|

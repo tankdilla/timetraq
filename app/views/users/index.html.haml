@@ -1,20 +1,14 @@
-%h1 Listing users
+%h1 Timetraq
 
 %table
   %tr
     %th 
-    %th 
-    %th
-    %th
     %th
 
   - @users.each do |user|
     %tr
-      %td= user.name
+      %td= link_to user.name, user
       %td= user.email
-      %td= link_to 'Show', user
-      %td= link_to 'Edit', edit_user_path(user)
-      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
