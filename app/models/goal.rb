@@ -22,6 +22,10 @@ class Goal
   def untracked_activities
     user.activities.nin(id: tracked_activity_ids)
   end
+  
+  def entries
+    tracked_activities.entries.collect{|a| a.entries.where(toward_goal: id.to_s).entries}.flatten
+  end
 
   #after_save :create_activities
 

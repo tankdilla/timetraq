@@ -21,5 +21,9 @@
   .field
     = f.label :score
     = f.number_field :score
+  - if @activity.tracked_by_goal?
+    .field
+      = f.label "Apply toward project: "
+      = f.collection_select :toward_goal, @activity.goals_tracking_this_activity, :id, :name, {:include_blank=>true}
   .actions
     = f.submit 'Save'

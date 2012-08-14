@@ -64,8 +64,11 @@ class GoalsController < ApplicationController
   def update
     @goal = @user.goals.find(params[:id])
     
-    if params[:activity_id]
-      user_activity = @user.activities.find(params[:activity_id])
+    if params[:activity]
+      user_activity = @user.activities.find(params[:activity][:id])
+      if @goal.tracked_activity_ids.blank?
+        @goal.tracked_activity_ids = Array.new
+      end
       @goal.tracked_activity_ids << user_activity.id #may only want to store the id
     end
 

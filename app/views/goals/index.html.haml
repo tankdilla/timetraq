@@ -4,6 +4,7 @@
   %tr
     %th Name
     %th Target completion date
+    %th Completed on
     %th
     %th
     %th
@@ -11,7 +12,12 @@
   - @goals.each do |goal|
     %tr
       %td= link_to goal.name, [@user, goal]
-      %td= goal.target_completion_date
+      %td{:align=>'center'}
+        - if goal.goal_type == 'recurring'
+          = goal.goal_type
+        - else
+          = goal.target_completion_date
+      %td= format_datetime goal.goal_completed_at
       %td= link_to 'Edit', edit_user_goal_path(@user, goal)
       %td= link_to 'Destroy', [@user, goal], :confirm => 'Are you sure?', :method => :delete
 

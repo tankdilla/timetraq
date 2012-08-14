@@ -20,11 +20,16 @@
 
 %p
   Currently tracking activities:
-  - @tracked_activities.each do |activity|
-    %ul
-      = activity.description
-      = render :partial => 'entries/list_entries', :locals=>{:entries=>activity.entries}
+  %ul
+    = render :partial => 'entries/list_entries', :locals=>{:entries=>@goal.entries}
 
+- if !@untracked_activities.blank?
+  = form_for :activity, :url => user_goal_path(@user, @goal), :method => :put do |f|
+    Track activity
+    = collection_select :activity, :id, @untracked_activities, :id, :description
+    
+    = f.submit 'Save'
+  
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
 \|
 = link_to 'Back', user_goals_path(@user)

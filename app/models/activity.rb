@@ -18,4 +18,16 @@ class Activity
       self._id = description.gsub(" ", "_")
     end
   end
+  
+  def goals_tracking_this_activity
+    @user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}
+  end
+  
+  def tracked_by_goal?
+    !goals_tracking_this_activity.blank?
+  end
+  
+  def goal_entries(goal_id)
+    entries.where(toward_goal: goal_id).entries
+  end
 end

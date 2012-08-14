@@ -27,6 +27,7 @@
         = a.activity.description
 
 - if !@day_entries.blank?
+  Recent activity entries logged:
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@day_entries}
     
 - if !@activities.blank?

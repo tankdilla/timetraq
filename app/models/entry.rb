@@ -9,6 +9,7 @@ class Entry
   field :days, type: Integer
   field :start_time, type: DateTime
   field :end_time, type: DateTime
+  field :toward_goal
 
   embedded_in :activity
   has_and_belongs_to_many :tags
