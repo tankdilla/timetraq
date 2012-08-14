@@ -1,8 +1,10 @@
 class GoalsController < ApplicationController
+  before_filter :find_user
+  
   # GET /goals
   # GET /goals.json
   def index
-    @goals = Goal.all
+    @goals = @user.goals.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +15,8 @@ class GoalsController < ApplicationController
   # GET /goals/1
   # GET /goals/1.json
   def show
-    @goal = Goal.find(params[:id])
+    @goal = @user.goals.find(params[:id])
+    @activities = @goal.activities
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +27,7 @@ class GoalsController < ApplicationController
   # GET /goals/new
   # GET /goals/new.json
   def new
-    @goal = Goal.new
+    @goal = @user.goals.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +37,19 @@ class GoalsController < ApplicationController
 
   # GET /goals/1/edit
   def edit
-    @goal = Goal.find(params[:id])
+    @goal = @user.goals.find(params[:id])
+    @activities = @user.activities
+    
   end
 
   # POST /goals
   # POST /goals.json
   def create
-    @goal = Goal.new(params[:goal])
+    @goal = @user.goals.new(params[:goal])
 
     respond_to do |format|
       if @goal.save
-        format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
+        format.html { redirect_to [@user,@goal], notice: '@user.goals was successfully created.' }
         format.json { render json: @goal, status: :created, location: @goal }
       else
         format.html { render action: "new" }
@@ -56,11 +61,11 @@ class GoalsController < ApplicationController
   # PUT /goals/1
   # PUT /goals/1.json
   def update
-    @goal = Goal.find(params[:id])
+    @goal = @user.goals.find(params[:id])
 
     respond_to do |format|
       if @goal.update_attributes(params[:goal])
-        format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
+        format.html { redirect_to [@user, @goal], notice: '@user.goals was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -72,11 +77,11 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   # DELETE /goals/1.json
   def destroy
-    @goal = Goal.find(params[:id])
+    @goal = @user.goals.find(params[:id])
     @goal.destroy
 
     respond_to do |format|
-      format.html { redirect_to goals_url }
+      format.html { redirect_to user_goals_url(@user) }
       format.json { head :no_content }
     end
   end

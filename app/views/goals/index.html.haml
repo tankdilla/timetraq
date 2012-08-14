@@ -10,12 +10,13 @@
 
   - @goals.each do |goal|
     %tr
-      %td= goal.name
+      %td= link_to goal.name, [@user, goal]
       %td= goal.target_completion_date
-      %td= link_to 'Show', goal
-      %td= link_to 'Edit', edit_goal_path(goal)
-      %td= link_to 'Destroy', goal, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Edit', edit_user_goal_path(@user, goal)
+      %td= link_to 'Destroy', [@user, goal], :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Goal', new_goal_path
+= link_to 'New Goal', new_user_goal_path(@user)
+\|
+= link_to 'Back to User', user_path(@user)

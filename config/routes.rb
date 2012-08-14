@@ -2,13 +2,20 @@ Timetraq::Application.routes.draw do
   
   resources :users do
     resources :projects
-    resources :goals
+    
+
     resources :activities do
          
       resources :entries
       resources :tags
       
-    end   
+    end
+    
+    resources :goals do
+      resources :activities do
+        resources :entries
+      end
+    end
      
     resources :tags
   end

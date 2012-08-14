@@ -7,6 +7,15 @@
   %b Target completion date:
   = @goal.target_completion_date
 
-= link_to 'Edit', edit_goal_path(@goal)
+- if !@activities.blank?
+  %p
+    Add goal entry for:
+    
+    %ul
+      - @activities.each do |activity|
+        %li
+          = link_to "#{activity.description}", new_user_goal_activity_entry_path(@user, @goal, activity)
+
+= link_to 'Edit', edit_user_goal_path(@user, @goal)
 \|
-= link_to 'Back', goals_path
+= link_to 'Back', user_goals_path(@user)
