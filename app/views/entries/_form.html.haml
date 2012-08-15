@@ -12,9 +12,9 @@
   Duration:
   .field
     = f.label :hours
-    = f.text_field :hours
+    = f.text_field :hours, :maxlength=>2, :size=>2
     = f.label :minutes
-    = f.text_field :minutes
+    = f.text_field :minutes, :maxlenght=>2, :size=>2
   .field
     = f.label :note
     = f.text_field :note

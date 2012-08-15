@@ -20,7 +20,11 @@ class Activity
   end
   
   def goals_tracking_this_activity
-    @user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}
+    if !@user.goals.blank?
+      @user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}.compact
+    else
+      []
+    end
   end
   
   def tracked_by_goal?

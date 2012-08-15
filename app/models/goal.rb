@@ -7,7 +7,7 @@ class Goal
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
   field :target_completion_date, type: Time
   field :goal_completed_at, type: Time
-  field :tracked_activity_ids, type: Array  #may only want to store the id
+  field :tracked_activity_ids, type: Array, :default=>[] #may only want to store the id
   
   embedded_in :user
   embedded_in :project
