@@ -12,10 +12,12 @@
     %tr
       %td= project.name
       %td= project.target_completion_date
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', [@user, project]
+      %td= link_to 'Edit', edit_user_project_path(@user, project)
+      %td= link_to 'Destroy', [@user, project], :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Project', new_project_path
+= link_to 'New Project', new_user_project_path(@user)
+\|
+= link_to 'Back to User', @user

@@ -84,7 +84,4 @@ class ActivitiesController < ApplicationController
     end
   end
   
-  def find_user
-    @user = User.find(params[:user_id])
-  end
 end

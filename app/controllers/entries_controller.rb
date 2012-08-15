@@ -84,9 +84,6 @@ class EntriesController < ApplicationController
   end
   
   private
-  def find_user
-    @user = User.find(params[:user_id])
-  end
   
   def find_activity
     if @user
