@@ -7,6 +7,7 @@ class User
   embeds_many :activities
   embeds_many :goals
   embeds_many :projects
+  embeds_many :tags
 
   def day_entries(date=Date.today)
     activities.collect{|a| a.entries.from_today.entries}.flatten

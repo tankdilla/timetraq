@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @tag
+= link_to 'Show', [@user, @tag]
 \|
-= link_to 'Back', tags_path
+= link_to 'Back', user_tags_path(@user)

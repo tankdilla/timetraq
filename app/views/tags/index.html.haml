@@ -12,10 +12,12 @@
     %tr
       %td= tag.description
       %td= tag.classification
-      %td= link_to 'Show', tag
-      %td= link_to 'Edit', edit_tag_path(tag)
-      %td= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', [@user, tag]
+      %td= link_to 'Edit', edit_user_tag_path(@user, tag)
+      %td= link_to 'Destroy', [@user, tag], :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Tag', new_tag_path
+= link_to 'New Tag', new_user_tag_path(@user)
+\|
+= link_to 'Back to User', user_path(@user)

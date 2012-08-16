@@ -9,6 +9,20 @@
 
 = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
 
+-unless @unapplied_tags.blank? 
+  = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
+    Add tag
+    = collection_select :tag, :id, @unapplied_tags, :id, :description
+    
+    = f.submit 'Tag'
+      
+-unless @applied_tags.blank? 
+  = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
+    Remove tag
+    = hidden_field_tag :untag, 'true'
+    = collection_select :tag, :id, @applied_tags, :id, :description
+    
+    = f.submit 'UnTag'
 %p
 = link_to 'Home', user_path(@user)
 \|

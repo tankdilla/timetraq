@@ -10,6 +10,8 @@ class Goal
   field :goal_completed_at, type: Time
   field :tracked_activity_ids, type: Array, :default=>[] #may only want to store the id
   
+  field :tag_ids, type: Array, :default=>[]
+  
   embedded_in :user
   embedded_in :project
   #embeds_many :activities

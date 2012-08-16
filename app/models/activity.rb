@@ -4,6 +4,8 @@ class Activity
   field :_id, type: String#, default: ->{ description } #set this to have a custom id, prettier url 
   field :priority, type: Integer
   
+  field :tag_ids, type: Array, :default=>[]
+  
   field :goal_score
   field :goal_duration
   

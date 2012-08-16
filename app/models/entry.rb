@@ -12,7 +12,6 @@ class Entry
   field :toward_goal
 
   embedded_in :activity
-  has_and_belongs_to_many :tags
 
   validates_presence_of :start_time
   

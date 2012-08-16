@@ -15,8 +15,10 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    #@activity = Activity.find(params[:id]i)
     @activity = @user.activities.find(params[:id])
+    
+    @unapplied_tags = @user.tags.nin(id: @activity.tag_ids)
+    @applied_tags = @user.tags.in(id: @activity.tag_ids)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -60,6 +62,16 @@ class ActivitiesController < ApplicationController
   # PUT /activities/1.json
   def update
     @activity = @user.activities.find(params[:id])
+    
+    if params[:tag]
+      if params[:untag]
+        tag_index = @activity.tag_ids.index(params[:tag][:id])
+        @activity.tag_ids.delete_at(tag_index)
+        @activity.save
+      else  
+        @activity.tag_ids << params[:tag][:id]
+      end
+    end
 
     respond_to do |format|
       if @activity.update_attributes(params[:activity])

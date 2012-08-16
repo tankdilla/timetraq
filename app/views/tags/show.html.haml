@@ -7,6 +7,8 @@
   %b Classification:
   = @tag.classification
 
-= link_to 'Edit', edit_tag_path(@tag)
+= link_to 'Edit', edit_user_tag_path(@user, @tag)
 \|
-= link_to 'Back', tags_path
+= link_to 'Back to Tags', user_tags_path(@user)
+\|
+= link_to 'Back to User', user_path(@user)
