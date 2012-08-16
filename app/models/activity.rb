@@ -9,12 +9,11 @@ class Activity
   field :goal_score
   field :goal_duration
   
-  field :execution_steps, type: Array
-
   embedded_in :user
   embeds_many :entries
   embeds_many :components
- 
+  #embeds_many :execution_steps
+
   before_create :set_defaults
 
   def set_defaults

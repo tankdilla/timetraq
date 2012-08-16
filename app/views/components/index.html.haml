@@ -1,0 +1,9 @@
+%h1 Listing components
+
+= render :partial => 'list_components', :locals=>{:components=>@components}
+
+%br
+
+= link_to 'New Component', new_user_activity_component_path[@user, @activity]
+\|
+= link_to 'Back to Activity', user_activity_path(@user, @activity)

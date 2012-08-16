@@ -1,0 +1,5 @@
+- unless components.blank?
+  %ul
+    - components.each do |component|
+      %li
+        = link_to component.name, [component.activity.user, component.activity, component]

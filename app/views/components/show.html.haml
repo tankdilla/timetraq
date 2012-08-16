@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @component.name
+%p
+  %b Description:
+  = @component.description
+
+= link_to 'Edit', edit_component_path(@user, @activity, @component)
+\|
+= link_to 'Back', user_activity_components_path(@user, @activity)

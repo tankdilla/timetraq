@@ -38,6 +38,7 @@ gem 'debugger'
 
 gem "cucumber-rails", :group => [:test]
 gem "capybara", :group => [:test]
+gem "webrat", :group => [:development, :test]
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "bson_ext"

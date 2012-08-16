@@ -16,6 +16,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/1.json
   def show
     @activity = @user.activities.find(params[:id])
+    @components = @activity.components
     
     @unapplied_tags = @user.tags.nin(id: @activity.tag_ids)
     @applied_tags = @user.tags.in(id: @activity.tag_ids)

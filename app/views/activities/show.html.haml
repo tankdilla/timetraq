@@ -6,8 +6,14 @@
 %p
   %b Default score:
   = @activity.priority
+  
+- unless @components.blank?
+  Activity Components
+  = render :partial => 'components/list_components', :locals=>{:components=>@components}
 
-= render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
+- unless @activity.entries.blank?
+  Recent Activity Entries
+  = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
 
 -unless @unapplied_tags.blank? 
   = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
@@ -33,3 +39,5 @@
 = link_to 'Activity List', user_activities_path(@user)
 \|
 = link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)
+\|
+= link_to 'Add Activity Component', new_user_activity_component_path(@user, @activity)
