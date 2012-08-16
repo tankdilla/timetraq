@@ -1,11 +1,12 @@
 Timetraq::Application.routes.draw do
   
   resources :users do
-    resources :projects
-    
+    resources :projects do
+      resources :goals, :only=>['new']
+    end
 
     resources :activities do
-         
+      
       resources :entries
       resources :tags
       

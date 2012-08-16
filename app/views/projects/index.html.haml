@@ -11,7 +11,7 @@
   - @projects.each do |project|
     %tr
       %td= project.name
-      %td= project.target_completion_date
+      %td= format_datetime project.target_completion_date
       %td= link_to 'Show', [@user, project]
       %td= link_to 'Edit', edit_user_project_path(@user, project)
       %td= link_to 'Destroy', [@user, project], :confirm => 'Are you sure?', :method => :delete

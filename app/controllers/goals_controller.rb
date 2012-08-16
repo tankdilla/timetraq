@@ -30,6 +30,10 @@ class GoalsController < ApplicationController
   def new
     @goal = @user.goals.new
 
+    if params[:project_id]
+      @goal.project_id = params[:project_id]
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @goal }
@@ -50,7 +54,7 @@ class GoalsController < ApplicationController
 
     respond_to do |format|
       if @goal.save
-        format.html { redirect_to [@user,@goal], notice: '@user.goals was successfully created.' }
+        format.html { redirect_to [@user,@goal], notice: 'Goal was successfully created.' }
         format.json { render json: @goal, status: :created, location: @goal }
       else
         format.html { render action: "new" }
@@ -74,7 +78,7 @@ class GoalsController < ApplicationController
 
     respond_to do |format|
       if @goal.update_attributes(params[:goal])
-        format.html { redirect_to [@user, @goal], notice: '@user.goals was successfully updated.' }
+        format.html { redirect_to [@user, @goal], notice: 'Goal was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

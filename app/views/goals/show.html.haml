@@ -32,4 +32,8 @@
   
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
 \|
-= link_to 'Back', user_goals_path(@user)
+= link_to 'Back to Goals', user_goals_path(@user)
+-if !@goal.project.nil?
+  \|
+  = link_to 'Back to Project', user_project_path(@user, @goal.project)
+

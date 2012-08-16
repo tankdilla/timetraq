@@ -8,5 +8,8 @@ class Project
   field :referenced_by_super_project_ids, type: Array, :default=>[]
   
   embedded_in :user
-  embeds_many :goals
+
+  def goals
+    @user.goals.where(project_id: id.to_s)
+  end
 end

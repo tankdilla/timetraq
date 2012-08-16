@@ -5,8 +5,16 @@
   = @project.name
 %p
   %b Target completion date:
-  = @project.target_completion_date
+  = format_datetime @project.target_completion_date
+-if !@project.goals.blank?
+  Project Goals:
+  %ul
+    - @project.goals.each do |g|
+      %li
+        = link_to g.name, user_goal_path(@user, g)
 
 = link_to 'Edit', edit_user_project_path(@user, @project)
 \|
 = link_to 'Back', user_projects_path(@user)
+\|
+= link_to 'Add project goal', new_user_project_goal_path(@user, @project)

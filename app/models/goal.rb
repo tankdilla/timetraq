@@ -5,6 +5,7 @@ class Goal
   field :name
   field :summary
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
+  field :project_id
   field :target_completion_date, type: Time
   field :goal_completed_at, type: Time
   field :tracked_activity_ids, type: Array, :default=>[] #may only want to store the id
@@ -27,16 +28,7 @@ class Goal
     tracked_activities.entries.collect{|a| a.entries.where(toward_goal: id.to_s).entries}.flatten
   end
 
-  #after_save :create_activities
-
-  #def create_activities
-  #  user.activities.each do |ua|
-  #    new_activity = activities.collect{|a| a if a.id == ua.id}.compact
-  #    if new_activity.blank?
-  #      new_activity = Activity.new(ua.attributes)
-  #      activities << new_activity
-  #    end
-  #  end
-
-  #end
+  def project
+    user.projects.find(project_id) unless project_id.nil?
+  end
 end
