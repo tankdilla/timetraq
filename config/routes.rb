@@ -2,21 +2,15 @@ Timetraq::Application.routes.draw do
   
   resources :users do
     resources :projects do
-      resources :goals, :only=>['new']
+      resources :goals, :only=>['new'] #only for the resource url, passing the project to the goal
     end
 
     resources :activities do
-      
+      resources :components
       resources :entries
-      resources :tags
-      
     end
     
-    resources :goals do
-      resources :activities do
-        resources :entries
-      end
-    end
+    resources :goals
      
     resources :tags
   end

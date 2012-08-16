@@ -46,7 +46,7 @@ class Entry
     end
     
     if !minutes.nil?
-      multiplier_minutes += mintues
+      multiplier_minutes += minutes
     end
     
     result = multiplier_minutes/15.to_i

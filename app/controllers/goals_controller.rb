@@ -69,11 +69,19 @@ class GoalsController < ApplicationController
     @goal = @user.goals.find(params[:id])
     
     if params[:activity]
-      user_activity = @user.activities.find(params[:activity][:id])
-      if @goal.tracked_activity_ids.blank?
-        @goal.tracked_activity_ids = Array.new
+      if params[:untrack]
+        
+        activity_index = @goal.tracked_activity_ids.index(params[:activity][:id])
+        @goal.tracked_activity_ids.delete_at(activity_index)
+        @goal.save
+      else
+          
+        user_activity = @user.activities.find(params[:activity][:id])
+        if @goal.tracked_activity_ids.blank?
+          @goal.tracked_activity_ids = Array.new
+        end
+        @goal.tracked_activity_ids << user_activity.id #may only want to store the id
       end
-      @goal.tracked_activity_ids << user_activity.id #may only want to store the id
     end
 
     respond_to do |format|

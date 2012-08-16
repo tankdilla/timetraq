@@ -6,10 +6,12 @@ class Activity
   
   field :goal_score
   field :goal_duration
+  
+  field :execution_steps, type: Array
 
   embedded_in :user
   embeds_many :entries
-  has_and_belongs_to_many :tags
+  embeds_many :components
  
   before_create :set_defaults
 
