@@ -3,6 +3,7 @@ class Goal
   include Mongoid::MultiParameterAttributes
   
   field :name
+  field :_id, type: String, default: ->{ name }
   field :summary
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
   field :project_id

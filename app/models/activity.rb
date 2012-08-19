@@ -1,14 +1,16 @@
 class Activity
   include Mongoid::Document
-  field :description, type: String
-  field :_id, type: String#, default: ->{ description } #set this to have a custom id, prettier url 
+  field :description
+  field :_id, type: String, default: ->{ description }
   field :priority, type: Integer
   
   field :tag_ids, type: Array, :default=>[]
   
   field :goal_score
   field :goal_duration
-  
+ 
+  validates_uniqueness_of :description, :message => "has already been entered"
+
   embedded_in :user
   embeds_many :entries
   embeds_many :components
@@ -22,6 +24,10 @@ class Activity
     end
   end
   
+  def allows_components?
+    false #logic here to determine whether to show component-related links
+  end
+
   def goals_tracking_this_activity
     if !@user.goals.blank?
       @user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}.compact

@@ -15,14 +15,14 @@
   Recent Activity Entries
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
 
--unless @unapplied_tags.blank? 
+- unless @unapplied_tags.blank? 
   = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
     Add tag
     = collection_select :tag, :id, @unapplied_tags, :id, :description
     
     = f.submit 'Tag'
-      
--unless @applied_tags.blank? 
+    
+- unless @applied_tags.blank? 
   = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
     Remove tag
     = hidden_field_tag :untag, 'true'
@@ -40,4 +40,5 @@
 \|
 = link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)
 \|
-= link_to 'Add Activity Component', new_user_activity_component_path(@user, @activity)
+-if @activity.allows_components?
+  = link_to 'Add Activity Component', new_user_activity_component_path(@user, @activity)

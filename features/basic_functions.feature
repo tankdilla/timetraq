@@ -9,5 +9,5 @@ Feature: Basic Functions
     And enter a username
     And enter an email
     And click Save
-    Then I should go to the show page
-    And I should see that a user was created successfully
+    Then a user should be created successfully
+    And I should be on the user show page
