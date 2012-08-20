@@ -17,6 +17,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     
+    if params[:date_change] && params[:date_change][:date]
+      session[:day] = Date.strptime(params[:date_change][:date], "%m/%d/%Y")
+    end
+    
     @day = session[:day]
     @day_entries = @user.day_entries(@day)
     @day_target = @user.day_target(@day)
@@ -87,5 +91,11 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+  
+  def change_date
+    @user = User.find(params[:id])
+    
+    @day = session[:day]
   end
 end
