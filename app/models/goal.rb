@@ -18,6 +18,13 @@ class Goal
   #embeds_many :activities
   
   validates_presence_of :goal_type
+  before_create :set_defaults
+
+  def set_defaults
+    #if !self._id.nil?
+      self._id = name.gsub(" ", "_")
+    #end
+  end
   
   def tracked_activities
     user.activities.in(id: tracked_activity_ids)
@@ -32,6 +39,17 @@ class Goal
   end
 
   def project
-    user.projects.find(project_id) unless project_id.nil?
+    user.projects.find(project_id) unless project_id.blank?
+  end
+
+  def track_activity(activity_id)
+    self.tracked_activity_ids << activity_id #may only want to store the id
+    self.save!
+  end
+
+  def untrack_activity(activity_id)
+    activity_index = self.tracked_activity_ids.index(activity_id)
+    self.tracked_activity_ids.delete_at(activity_index)
+    self.save!
   end
 end

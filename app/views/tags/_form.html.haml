@@ -10,7 +10,7 @@
     = f.label :description
     = f.text_field :description
   .field
-    = f.label :classification
-    = f.text_field :classification
+    = f.label "Score (optional, 1 = positive, -1 = not positive, 0 = neutral)"
+    = f.select :classification, [[-1, -1],[0,0],[1,1]]
   .actions
     = f.submit 'Save'

@@ -38,10 +38,14 @@
     
     = f.submit 'Un-track'
 
+= link_to 'Home', user_path(@user)
+\|
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
 \|
 = link_to 'Back to Goals', user_goals_path(@user)
 -if !@goal.project.nil?
   \|
   = link_to 'Back to Project', user_project_path(@user, @goal.project)
+\|
+= link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)
 

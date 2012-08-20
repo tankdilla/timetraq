@@ -3,7 +3,6 @@
 %table
   %tr
     %th Description
-    %th Priority
     %th
     %th
     %th
@@ -11,10 +10,9 @@
   - @activities.each do |activity|
     %tr
       %td= activity.description
-      %td= activity.priority
-      %td= link_to 'Show', user_activity_path(@user, activity)
-      %td= link_to 'Edit', edit_user_activity_path(@user, activity)
-      %td= link_to 'Destroy', user_activity_path(@user, activity), :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', user_activity_path(activity.user, activity)
+      %td= link_to 'Edit', edit_user_activity_path(activity.user, activity)
+      %td= link_to 'Destroy', user_activity_path(activity.user, activity), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
