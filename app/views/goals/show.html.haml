@@ -48,4 +48,5 @@
   = link_to 'Back to Project', user_project_path(@user, @goal.project)
 \|
 = link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)
-
+\|
+= link_to 'Delete Goal', [@user, @goal], :confirm => 'Are you sure?', :method => :delete

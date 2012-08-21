@@ -3,12 +3,19 @@
 %p
   %b Description:
   = @tag.description
+  = "(#{@tag.classification})"
+
 %p
-  %b Classification:
-  = @tag.classification
+  Items tagged as 
+  = @tag.description
+  \:
+  - @tag.activities_tagged.each do |a|
+    = link_to a.description, [a.user, a]
 
 = link_to 'Edit', edit_user_tag_path(@user, @tag)
 \|
 = link_to 'Back to Tags', user_tags_path(@user)
 \|
 = link_to 'Back to User', user_path(@user)
+\|
+= link_to 'Destroy', [@user, @tag], :confirm => 'Are you sure?', :method => :delete

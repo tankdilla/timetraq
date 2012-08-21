@@ -1,20 +1,8 @@
-%h1 Listing tags
+%h1 Tags
 
-%table
-  %tr
-    %th Description
-    %th Classification
-    %th
-    %th
-    %th
-
+%ul
   - @tags.each do |tag|
-    %tr
-      %td= tag.description
-      %td= tag.classification
-      %td= link_to 'Show', [@user, tag]
-      %td= link_to 'Edit', edit_user_tag_path(@user, tag)
-      %td= link_to 'Destroy', [@user, tag], :confirm => 'Are you sure?', :method => :delete
+    = link_to tag.description, [@user, tag]
 
 %br
 

@@ -32,6 +32,7 @@ class GoalsController < ApplicationController
 
     if params[:project_id]
       @goal.project_id = params[:project_id]
+      @goal.goal_type = 3
     end
 
     respond_to do |format|

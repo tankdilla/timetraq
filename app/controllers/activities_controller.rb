@@ -47,7 +47,7 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = @user.activities.create!(params[:activity])
-    debugger
+    
     @activity.add_to_goal(params[:goal_id]) unless params[:goal_id].blank?
 
     respond_to do |format|
@@ -75,7 +75,7 @@ class ActivitiesController < ApplicationController
         @activity.tag_ids << params[:tag][:id]
       end
     end
-    debugger
+    
     @activity.add_to_goal(params[:goal_id]) unless params[:goal_id].blank?
     
     respond_to do |format|

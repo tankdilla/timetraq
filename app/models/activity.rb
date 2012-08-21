@@ -15,6 +15,8 @@ class Activity
   embeds_many :entries
   embeds_many :components
   #embeds_many :execution_steps
+  
+  scope :with_goals, where(:goal_score.exists => true)
 
   before_create :set_defaults
 

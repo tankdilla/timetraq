@@ -5,5 +5,9 @@ class Tag
   field :_id, type: String, default: ->{ description }
   
   embedded_in :user
+  
+  def activities_tagged
+    user.activities.collect{|a| a if a.tag_ids.include?(self.id)}.compact
+  end
 
 end

@@ -1,20 +1,8 @@
-%h1 Listing projects
+%b
+  Projects
 
-%table
-  %tr
-    %th Name
-    %th Target completion date
-    %th
-    %th
-    %th
-
-  - @projects.each do |project|
-    %tr
-      %td= project.name
-      %td= format_datetime project.target_completion_date
-      %td= link_to 'Show', [@user, project]
-      %td= link_to 'Edit', edit_user_project_path(@user, project)
-      %td= link_to 'Destroy', [@user, project], :confirm => 'Are you sure?', :method => :delete
+%p
+= render :partial => 'list_projects', :locals=>{:projects => @projects}
 
 %br
 

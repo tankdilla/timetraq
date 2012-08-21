@@ -14,14 +14,18 @@
     = f.label :summary
     = f.text_field :summary
   .field
-    = f.label "Goal type: "
-    = f.radio_button(:goal_type, "one-time")
-    One-time
-    = f.radio_button(:goal_type, "recurring")
-    Recurring
-  - if params[:set_date] == true  
-    .field
-      = f.label :target_completion_date
-      = f.datetime_select :target_completion_date
+    - if !params[:project_id].nil?
+      = f.label "Goal type: Project"
+      = f.hidden_field :goal_type
+    - else
+      = f.label "Goal type: "
+      = f.radio_button(:goal_type, "one-time")
+      One-time
+      = f.radio_button(:goal_type, "recurring")
+      Recurring
+    - if params[:set_date] == true  
+      .field
+        = f.label :target_completion_date
+        = f.datetime_select :target_completion_date
   .actions
     = f.submit 'Save'

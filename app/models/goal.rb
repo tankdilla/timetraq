@@ -7,15 +7,19 @@ class Goal
   field :summary
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
   field :project_id
-  field :target_completion_date, type: Time
-  field :goal_completed_at, type: Time
-  field :tracked_activity_ids, type: Array, :default=>[] #may only want to store the id
-  
+  field :target_completion_date, type: Date
+  field :goal_completed_at, type: Date
+  field :tracked_activity_ids, type: Array, :default=>[]
+  field :referenced_subgoal_ids, type: Array, :default=>[]
+  field :referenced_by_super_goal_ids, type: Array, :default=>[]
   field :tag_ids, type: Array, :default=>[]
   
   embedded_in :user
   embedded_in :project
   #embeds_many :activities
+  
+  scope :in_progress, where(:completion_date.exists => false)
+  scope :completed, where(:completion_date.exists => true)
   
   validates_presence_of :goal_type
   before_create :set_defaults

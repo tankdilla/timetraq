@@ -18,3 +18,5 @@
 = link_to 'Back', user_projects_path(@user)
 \|
 = link_to 'Add project goal', new_user_project_goal_path(@user, @project)
+\|
+= link_to 'Destroy', [@user, @project], :confirm => 'Are you sure?', :method => :delete
