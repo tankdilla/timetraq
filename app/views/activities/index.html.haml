@@ -1,18 +1,10 @@
-%h1 Listing activities
+%b
+  activities
 
-%table
-  %tr
-    %th Description
-    %th
-    %th
-    %th
-
-  - @activities.each do |activity|
-    %tr
-      %td= activity.description
-      %td= link_to 'Show', user_activity_path(activity.user, activity)
-      %td= link_to 'Edit', edit_user_activity_path(activity.user, activity)
-      %td= link_to 'Destroy', user_activity_path(activity.user, activity), :confirm => 'Are you sure?', :method => :delete
+%ul
+- @activities.each do |activity|
+  %li
+    = link_to activity.description, [activity.user, activity]
 
 %br
 

@@ -12,8 +12,7 @@
 
 %p
   - unless @user.projects.blank? && @user.projects.in_progress.blank?
-    Project Summary:
-    %p
+    Projects:
     = render :partial => 'projects/list_projects', :locals => {:projects=>@user.projects.in_progress}
 
 %p
@@ -53,8 +52,6 @@
 = link_to 'Back', users_path
 \|
 = link_to 'Activities', user_activities_path(@user)
-\|
-= link_to 'Add Activity', new_user_activity_path(@user)
 \|
 = link_to 'Individual Goals', user_goals_path(@user)
 \|

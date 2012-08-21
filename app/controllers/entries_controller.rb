@@ -27,6 +27,7 @@ class EntriesController < ApplicationController
   # GET /entries/new.json
   def new
     @entry = @activity.entries.new
+    @entry.start_time = session[:day]
 
     respond_to do |format|
       format.html # new.html.erb
