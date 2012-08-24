@@ -8,8 +8,14 @@ class User
   embeds_many :goals
   embeds_many :projects
   embeds_many :tags
+  
+  before_create :set_defaults
 
   validates_uniqueness_of :name, :message => "has already been taken"
+  
+  def set_defaults
+    self._id = name.gsub(" ", "_")
+  end
 
   def day_entries(date=Date.today)
     activities.collect{|a| a.entries.from_today.entries}.flatten

@@ -5,9 +5,15 @@ Feature: Basic Functions
   
   Scenario: First time user enters
     Given I am at the home page
-    When I click New User
+    When I click "New User"
     And enter a username
     And enter an email
-    And click Save
+    And click "Save"
     Then a user should be created successfully
-    And I should be on the user show page
+    And I should see "User was successfully created"
+
+  Scenario: User enters an activity
+    Given there is a user
+    When I create a new activity
+    Then the user should have an activity
+    

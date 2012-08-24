@@ -14,7 +14,7 @@
     = f.label :summary
     = f.text_field :summary
   .field
-    - if !@goal.project_id.nil?
+    - if !@goal.project_id.blank?
       = f.label "Goal type: Project"
       = f.hidden_field :goal_type
     - else
