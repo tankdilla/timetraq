@@ -1,3 +1,19 @@
+:javascript
+  $(function() {
+      if($("#goal_goal_type_recurring").is(":checked")){
+         $('.field.recurring_fields').show();   
+           }else{
+         $('.field.recurring_fields').hide();    
+           }
+      $("input[name='goal[goal_type]']").change(function(){
+          if($("#goal_goal_type_recurring").is(":checked")){
+             $('.field.recurring_fields').show();   
+               }else{
+             $('.field.recurring_fields').hide();    
+               }
+      });
+  });
+
 = form_for [@user, @goal] do |f|
   -if @goal.errors.any?
     #error_explanation
@@ -27,5 +43,40 @@
       .field
         = f.label :target_completion_date
         = f.datetime_select :target_completion_date
+  .field
+    .recurring_fields
+      = f.label "Set frequency for evaluating goal: "
+      %br
+      = radio_button_tag :goal_frequency, "daily"
+      Daily
+      %br
+      = radio_button_tag :goal_frequency, "weekly"
+      Weekly
+      %br
+      = radio_button_tag :goal_frequency, "bi-weekly"
+      Bi-Monthly
+      %br
+      = radio_button_tag :goal_frequency, "monthly"
+      Monthly
+      %br
+      = radio_button_tag :goal_frequency, "other"
+      Every
+      = f.text_field :goal_frequency, {:maxlength=>3, :size=>3}
+      = select :frequency, :other_frequency_unit, [["days",1], ["weeks",2], ["months",3]]
+  .field
+    = f.label "Set goal by score or amount of time spent on activities"
+    %p
+    = radio_button_tag "goal_evaluated_by", "score"
+    Score: 
+    = f.text_field :goal_score, {:maxlength=>3, :size=>3}
+    %p
+    = radio_button_tag "goal_evaluated_by", "duration"
+    Duration: 
+    = f.text_field :goal_duration, {:maxlength=>3, :size=>3}
+    = radio_button_tag :duration_type, :goal_duration_days_ind
+    Days
+    = radio_button_tag :duration_type, :goal_duration_hours_ind
+    Hours
   .actions
     = f.submit 'Save'
+    

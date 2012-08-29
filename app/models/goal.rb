@@ -14,9 +14,18 @@ class Goal
   field :referenced_by_super_goal_ids, type: Array, :default=>[]
   field :tag_ids, type: Array, :default=>[]
   
+  field :goal_score     #goal score for tracked activities
+  
+  field :goal_duration_days_ind  #goal amount of time spent on tracked activities
+  field :goal_duration_hours_ind
+  field :goal_duration
+    
+  field :goal_frequency_unit #days, hours, minutes
+  field :goal_frequency
+  field :goal_frequency_starting_on
+  
   embedded_in :user
   embedded_in :project
-  #embeds_many :activities
   
   scope :in_progress, where(:completion_date.exists => false)
   scope :completed, where(:completion_date.exists => true)

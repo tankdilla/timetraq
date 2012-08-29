@@ -6,9 +6,6 @@ class Activity
   
   field :tag_ids, type: Array, :default=>[]
   
-  field :goal_score
-  field :goal_duration
-  
   validates_uniqueness_of :description, :message => "has already been entered"
 
   embedded_in :user
@@ -49,7 +46,7 @@ class Activity
   end
   
   def add_to_goal(goal_id)
-    goal = @user.goals.find(goal_id)
+    goal = user.goals.find(goal_id)
     unless goal.nil?
       goal.track_activity(self.id)
     end

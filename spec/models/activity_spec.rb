@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe Activity do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @user = create(:user)
+  end
+  
+  it "should add an activity" do
+    
+  end
+  
+  it "should not allow special characters in the name (besides dashes)" do
+    pending
+  end
 end

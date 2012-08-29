@@ -1,5 +1,12 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @user = build(:user)
+  end
+  
+  #test user validation
+  context "testing user validation" do
+    
+  end
 end
