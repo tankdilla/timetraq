@@ -17,6 +17,21 @@
 %p
   %b Goal Type:
   = @goal.goal_type
+- if @goal.goal_type == "recurring"
+  %p
+    Goal checked every
+    = @goal.goal_frequency
+    = @goal.goal_frequency_unit
+
+- if !@goal.goal_amount_score.blank?
+  %p
+    Goal Score:
+    = @goal.goal_amount
+- elsif !@goal.goal_amount_duration.blank?
+  %p
+    Goal Duration:
+    = @goal.goal_amount_duration
+    = @goal.goal_amount_unit
 
 %p
   Currently tracking activities:

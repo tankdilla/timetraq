@@ -51,15 +51,61 @@ class GoalsController < ApplicationController
   # POST /goals
   # POST /goals.json
   def create
+    debugger
     @goal = @user.goals.new(params[:goal])
-
-    respond_to do |format|
-      if @goal.save
-        format.html { redirect_to [@user,@goal], notice: 'Goal was successfully created.' }
-        format.json { render json: @goal, status: :created, location: @goal }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @goal.errors, status: :unprocessable_entity }
+    
+    if params[:goal_amount].blank?
+      @goal.errors[:base] << "Select score or duration for setting goal."
+    elsif params[:goal_amount] == "score"
+      if @goal.goal_amount_score.blank?
+        @goal.errors[:goal_amount_score] << "should be set."
+      end
+      
+      if !@goal.goal_amount_duration.blank?
+        @goal.goal_amount_duration = nil
+      end
+    elsif params[:goal_amount] == "duration"
+      if @goal.goal_amount_duration.blank?
+        @goal.errors[:goal_amount_duration] << "should be set."
+      end
+      
+      if !@goal.goal_amount_score.blank?
+        @goal.goal_amount_score = nil
+      end
+    end
+    
+    if @goal.goal_type == 'recurring'
+      case params[:goal_frequency]
+      when "daily"
+        @goal.goal_frequency = 1
+        @goal.goal_frequency_unit = "day"
+      when "weekly"
+        @goal.goal_frequency = 1
+        @goal.goal_frequency_unit = "week"
+      when "bi-monthly"
+        @goal.goal_frequency = 2
+        @goal.goal_frequency_unit = "week"
+      when "monthly"
+        @goal.goal_frequency = 1
+        @goal.goal_frequency_unit = "month"
+      when "other"
+        @goal.goal_frequency = params[:goal_frequency].to_i
+        @goal.goal_frequency_unit = params[:frequency][:other_frequency_unit]
+      end
+    
+    end
+    
+    if !@goal.errors.empty?
+      render action: "new"
+    else
+      respond_to do |format|
+        if @goal.save
+          format.html { redirect_to [@user,@goal], notice: 'Goal was successfully created.' }
+          format.json { render json: @goal, status: :created, location: @goal }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @goal.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

@@ -14,11 +14,9 @@ class Goal
   field :referenced_by_super_goal_ids, type: Array, :default=>[]
   field :tag_ids, type: Array, :default=>[]
   
-  field :goal_score     #goal score for tracked activities
-  
-  field :goal_duration_days_ind  #goal amount of time spent on tracked activities
-  field :goal_duration_hours_ind
-  field :goal_duration
+  field :goal_amount_score     #goal score for tracked activities
+  field :goal_amount_duration
+  field :goal_amount_unit  #days, hours, minutes, points
     
   field :goal_frequency_unit #days, hours, minutes
   field :goal_frequency
@@ -31,12 +29,24 @@ class Goal
   scope :completed, where(:completion_date.exists => true)
   
   validates_presence_of :goal_type
-  before_create :set_defaults
+  validates_presence_of :goal_amount_score, :if => Proc.new { |goal| goal.goal_amount_duration.nil? }
+  validates_presence_of :goal_amount_duration, :if => Proc.new { |goal| goal.goal_amount_score.nil? }
+  
+  before_create :set_custom_id
+  before_save :set_default_values
 
-  def set_defaults
+  def set_custom_id
     #if !self._id.nil?
       self._id = name.gsub(" ", "_")
     #end
+  end
+  
+  def set_default_values
+    if self.goal_type == 1
+      self.goal_frequency_unit = nil
+      self.goal_frequency = nil
+      self.goal_frequency_starting_on = nil
+    end
   end
   
   def tracked_activities
