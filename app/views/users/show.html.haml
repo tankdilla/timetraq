@@ -14,14 +14,6 @@
   - unless @user.projects.blank? && @user.projects.in_progress.blank?
     Projects:
     = render :partial => 'projects/list_projects', :locals => {:projects=>@user.projects.in_progress}
-
-%p
-  - unless @user.activities.blank? || @user.activities.with_goals.blank?
-    Activity Goal Summary
-    %ul
-      - @user.activities.with_goals.each do |a|
-        %li
-          = a.name
     
 - if !@day_target.nil?
   %p
