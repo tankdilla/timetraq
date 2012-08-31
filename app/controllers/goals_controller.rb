@@ -51,7 +51,6 @@ class GoalsController < ApplicationController
   # POST /goals
   # POST /goals.json
   def create
-    debugger
     @goal = @user.goals.new(params[:goal])
     
     if params[:goal_amount].blank?

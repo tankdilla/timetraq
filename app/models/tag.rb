@@ -6,6 +6,12 @@ class Tag
   
   embedded_in :user
   
+  before_create :set_defaults
+
+  def set_defaults
+    self._id = description.gsub(" ", "_")
+  end
+  
   def activities_tagged
     user.activities.collect{|a| a if a.tag_ids.include?(self.id)}.compact
   end
