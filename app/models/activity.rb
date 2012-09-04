@@ -16,9 +16,7 @@ class Activity
   before_create :set_defaults
 
   def set_defaults
-    #if !self._id.nil?
-      self._id = description.gsub(" ", "_")
-    #end
+    self._id = description.gsub(" ", "_")
   end
   
   def allows_components?
@@ -56,5 +54,16 @@ class Activity
   
   def goal_entries(goal_id)
     entries.where(toward_goal: goal_id).entries
+  end
+
+  def tag(tag_id)
+    tag_ids << tag_id
+    self.save!
+  end
+
+  def untag(tag_id)
+    tag_index = self.tag_ids.index(params[:tag][:id])
+    self.tag_ids.delete_at(tag_index)
+    self.save!
   end
 end

@@ -68,11 +68,9 @@ class ActivitiesController < ApplicationController
     
     if params[:tag]
       if params[:untag]
-        tag_index = @activity.tag_ids.index(params[:tag][:id])
-        @activity.tag_ids.delete_at(tag_index)
-        @activity.save
+        @activity.untag(params[:tag][:id])
       else  
-        @activity.tag_ids << params[:tag][:id]
+        @activity.tag(params[:tag][:id])
       end
     end
     

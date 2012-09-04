@@ -17,8 +17,6 @@ class Entry
   
   before_save :set_default_score
   
-  #scope :named, ->(name){ where(name: name) }
-  #scope :english, where(country: "England")
   scope :from_today, where(:start_time.gte => Date.today).where(:start_time.lte => Date.today+1.day)
   scope :from, ->(date){ where(:start_time.gte => date).where(:start_time.lte => date+1.day) }
   scope :since, ->(date){ where(:start_time.gte => date)}
