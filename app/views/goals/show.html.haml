@@ -27,6 +27,17 @@
   %p
     Goal Score:
     = @goal.goal_amount_score
+  %p
+    Current Score:
+    = @goal.current_score
+  - unless @goal.current_score >= @goal.goal_amount_score.to_i
+    You need 
+    = @goal.goal_amount_score.to_i - @goal.current_score
+    point(s) to reach your goal.
+  - else
+    %h3
+      Goal has been met!
+    
 - elsif !@goal.goal_amount_duration.blank?
   %p
     Goal Duration:

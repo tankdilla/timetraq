@@ -58,7 +58,7 @@ class Goal
   end
   
   def entries
-    tracked_activities.entries.collect{|a| a.entries.where(toward_goal: id.to_s).entries}.flatten
+    tracked_activities.entries.collect{|a| a.entries}.flatten
   end
 
   def project
@@ -74,5 +74,92 @@ class Goal
     activity_index = self.tracked_activity_ids.index(activity_id)
     self.tracked_activity_ids.delete_at(activity_index)
     self.save!
+  end
+  
+  def normalize_duration(duration_hash)
+    days = hours = minutes = 0
+    if duration_hash[:minutes] > 60
+      hours = duration_hash[:minutes] / 60
+      minutes = duration_hash[:minutes] % 60
+    end
+    
+    if duration_hash[:hours] > 24
+      hours += duration_hash[:hours] / 24
+      days = duration_hash[:hours] % 24
+    end
+    
+    if duration_hash[:days]
+      days += duration_hash[:days]
+    end
+    
+    {:days=>days, :hours=>hours, :minutes=>minutes}
+  end
+  
+  def current_duration
+    minutes = entries.inject(0){|score, entry| score += entry.minutes}
+    hours = entries.inject(0){|score, entry| score += entry.hours}
+    days = entries.inject(0){|score, entry| score += entry.days}
+    
+    normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
+  end
+  
+  def duration_needed
+    current_dur = current_duration
+    
+    goal_string = ""
+    
+    case goal_amount_unit
+    when "days"
+      goal_days = goal_amount_duration
+      if current_dur[:days] >= goal_days
+        goal_string += "Goal has been met!"
+      end
+    when "hours"
+      goal_hours = goal_amount_duration
+      if current_dur[:hours] >= goal_hours
+        goal_string += "Goal has been met!"
+      end
+    when "minutes"
+      goal_minutes = goal_amount_duration
+      if current_dur[:minutes] >= goal_minutes
+        goal_string += "Goal has been met!"
+      end
+    end
+    
+    if goal_string != "Goal has been met!"
+    
+      goal_string = "Goal: #{goal_amount_duration} #{goal_amount_unit}, Current duration: "
+      if goal_amount_unit == "days"
+        goal_string += "#{current_dur[:days]} days, #{current_dur[:hours]} hours, #{current_dur[:minutes]} minutes"
+      elsif goal_amount_unit == "hours"
+        goal_string += "#{current_dur[:hours]} hours, #{current_dur[:minutes]} minutes"
+      elsif goal_amount_unit == "minutes"
+        goal_string += "#{current_dur[:minutes]} minutes"
+      end
+    end
+    
+    goal_string
+  end
+  
+  def current_score
+    entries.inject(0){|score, entry| score += entry.score}
+  end
+  
+  def points_needed
+    goal_amount_score.to_i - current_score
+  end
+  
+  def goal_status
+    if !@goal.goal_amount_score.blank?
+      unless points_needed <= 0
+        "You need #{points_needed} point(s) to reach your goal."
+      else
+        "Goal has been met!"
+      end
+    elsif !@goal.goal_amount_duration.blank?
+      
+      
+    end
+ 
   end
 end

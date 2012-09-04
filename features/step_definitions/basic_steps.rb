@@ -49,18 +49,20 @@ Given /^the user has an activity called "(.*?)"$/ do |activity|
   }
   
   User.count.should == 1
-  @user.activities.count.should == 1
+  @user.activities.where(description: activity).count.should == 1
 end
 
 When /^the user logs an entry called "(.*?)" for activity "(.*?)" for (\d+) minutes$/ do |entry_desc, activity_desc, minutes|
-  create(:entry, :note=>entry_desc, :minutes=>minutes, :activity => @user.activities.first)
+  activity = @user.activities.where(description: activity_desc).first
+  activity.should_not be_nil
+  create(:entry, :note=>entry_desc, :minutes=>minutes, :activity => activity)
 end
 
 When /^I visit the activity show page$/ do
   visit(user_activity_path(@user, @user.activities.first))
 end
 
-Given /^the user creates a tag called "(.*?)" with a score of (\d+)$/ do |tag_desc, tag_score|
+Given /^the user (creates|has) a tag called "(.*?)" with a score of (\d+)$/ do |arg1, tag_desc, tag_score|
   create(:tag, :description=>tag_desc, :classification=>tag_score, :user=>@user)
 end
 
@@ -79,13 +81,48 @@ When /^I tag the activity "(.*?)" with "(.*?)"$/ do |activity_desc, tag_desc|
   activity.tag(tag.id)
 end
 
-Given /^the activity is tagged as "(.*?)"$/ do |arg1|
+Given /^the activity "(.*?)" is tagged as "(.*?)"$/ do |activity_desc, tag_desc|
   steps %{
     Given the user creates a tag called "productive" with a score of 1
-    When I tag the activity "Doing productive work" with "#{arg1}" 
+    When I tag the activity "#{activity_desc}" with "#{tag_desc}" 
     }
 end
 
 Then /^the entry should have a default score of (\d+)$/ do |arg1|
   @user.activities.first.entries.first.score.should == 2
+end
+
+When /^I create a "(.*?)" goal called "(.*?)" with a goal score of (\d+)$/ do |goal_type_desc, goal_desc, goal_score|
+  create(:goal, :name=>goal_desc, :goal_type=>goal_type_desc, :goal_amount_score=>goal_score, :user=>@user)
+end
+
+When /^I visit the goal show page$/ do
+  visit(user_goal_path(@user, @user.goals.first))
+end
+
+Given /^there is a user with a "(.*?)" goal called "(.*?)" with a goal score of (\d+)$/ do |goal_type, goal_desc, goal_score|
+  steps %{
+    Given there is a user
+    When I create a "#{goal_type}" goal called "#{goal_desc}" with a goal score of #{goal_score}
+    }
+  @user.goals.count.should == 1
+  @user.goals.where(name: goal_desc, goal_amount_score: goal_score).count.should == 1
+end
+
+When /^the goal tracks the activity "(.*?)"$/ do |activity_desc|
+  activity = @user.activities.where(description: activity_desc).first
+  activity.should_not be_nil
+  @user.goals.first.track_activity(activity.id)
+end
+
+Given /^the user makes (\d+) (\d+) minute activity entries for activity "(.*?)"$/ do |entry_count, entry_duration, activity_desc|
+  entry_count.to_i.times do
+    steps %{
+      And the user logs an entry called "Did: #{activity_desc}" for activity "#{activity_desc}" for #{entry_duration} minutes
+    }
+  end
+  
+  activity = @user.activities.where(description: activity_desc).first
+  activity.should_not be_nil
+  activity.entries.where(note: "Did: #{activity_desc}", minutes: entry_duration).count.should == entry_count.to_i
 end

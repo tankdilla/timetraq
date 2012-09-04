@@ -27,4 +27,9 @@ FactoryGirl.define do
     t.classification 1
     t.association :user
   end
+  
+  factory :goal do |g|
+    g.name "Do something ambitious"
+    g.goal_type "one-time"
+  end
 end
