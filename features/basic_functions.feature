@@ -75,5 +75,10 @@ Feature: Basic Functions
     Then I should see a "goal score" called "Goal Score: 10"
     And I should see a "current score" called "Current Score: 7"
     And I should see a "summary" called "You need 3 point(s) to reach your goal"
-    
-	  
+
+  Scenario: User creates a project
+    Given there is a user
+    And the user creates a project called "Build something awesome"
+    When I visit the project show page
+    Then I should see a "project" called "Build something awesome"
+  

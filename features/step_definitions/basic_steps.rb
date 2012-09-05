@@ -126,3 +126,14 @@ Given /^the user makes (\d+) (\d+) minute activity entries for activity "(.*?)"$
   activity.should_not be_nil
   activity.entries.where(note: "Did: #{activity_desc}", minutes: entry_duration).count.should == entry_count.to_i
 end
+
+Given /^the user creates a project called "(.*?)"$/ do |project_desc|
+  create(:project, :name=>project_desc, :user=>@user)
+end
+
+When /^I visit the project show page$/ do
+  visit(user_project_path(@user, @user.projects.first))
+end
+
+
+
