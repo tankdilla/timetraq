@@ -1,0 +1,52 @@
+%p#notice= notice
+
+%p
+  %b
+    = "#{@user.name} (#{@user.email})"
+
+%p
+  Summary for
+  = format_date @day
+  = link_to 'Change Date', change_date_user_path(@user)
+
+%p
+  - unless @user.projects.blank? && @user.projects.in_progress.blank?
+    Projects:
+    = render :partial => 'projects/list_projects', :locals => {:projects=>@user.projects.in_progress}
+    
+- if !@day_target.nil?
+  %p
+    Your target score for today is:
+    = @day_target.score
+
+  %p
+    Based on your preferences and goals, this score accounts for the following:
+  
+  %ul
+    - @day_target.target_activities.each do |a|
+      %li
+        = a.activity.description
+
+- if !@day_entries.blank?
+  Recent activity entries logged:
+  = render :partial => 'entries/list_entries', :locals=>{:entries=>@day_entries}
+    
+- if !@activities.blank?
+  %p
+    Log activity entry for:
+    
+    %ul
+      - @activities.each do |activity|
+        %li
+          = link_to "#{activity.description}", new_user_activity_entry_path(@user, activity)
+
+= link_to 'Activities', user_activities_path(@user)
+\|
+= link_to 'Individual Goals', user_goals_path(@user)
+\|
+= link_to 'Projects', user_projects_path(@user)
+\|
+= link_to 'Tags', user_tags_path(@user)
+\|
+= link_to 'Destroy User', @user, :confirm => 'Are you sure?', :method => :delete
+

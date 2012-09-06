@@ -3,14 +3,14 @@ Feature: Basic Functions
   As a user
   I want to enter the activities that I do
   
-  Scenario: First time user enters
-    Given I am at the home page
-    When I click the link "New User"
-    And enter a username
-    And enter an email
-    And I click the button "Save"
-    Then a user should be created successfully
-    And I should see "User was successfully created"
+  # Scenario: First time user enters
+  #  Given I am at the home page
+  #  When I click the link "New User"
+  #  And enter a username
+  #  And enter an email
+  #  And I click the button "Save"
+  #  Then a user should be created successfully
+  #  And I should see "User was successfully created"
 
   Scenario: User enters an activity
     Given there is a user

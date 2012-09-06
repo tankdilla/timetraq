@@ -34,6 +34,13 @@ class User
   validates_uniqueness_of :name, :email, :case_sensitive => false
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
+  embeds_many :activities
+  embeds_many :goals
+  embeds_many :projects
+  embeds_many :tags
+  
+  before_create :set_defaults
+  
   ## Confirmable
   # field :confirmation_token,   :type => String
   # field :confirmed_at,         :type => Time
@@ -47,4 +54,27 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  def set_defaults
+    self._id = name.gsub(" ", "_")
+  end
+
+  def day_entries(date=Date.today)
+    activities.collect{|a| a.entries.from_today.entries}.flatten
+  end
+  
+  def day_score(date=Date.today)
+    day_entries.inject(0){|result, entry| result + entry.score}
+  end
+  
+  def day_target(day)
+    # get day of the week
+    
+    # look for preset goals
+    # On screen have it say something like: Based on your goals, this is what you should shoot for
+    
+    # look for entries from prior entries from the same day of the week
+    # On screen have it say something like: on average, this is what you usually do
+    
+  end
 end

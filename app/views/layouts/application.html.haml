@@ -2,7 +2,7 @@
 %html
   %head
     %title
-			=page_title
+      =page_title
 			
     = stylesheet_link_tag    'application'
     = javascript_include_tag 'application'
@@ -16,8 +16,4 @@
       = render 'shared/navigation'
     - flash.each do |name, msg|
       = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
-    %p.notice
-      = notice
-    %p.alert
-      = alert
     = yield

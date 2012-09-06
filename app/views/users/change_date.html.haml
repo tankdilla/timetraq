@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b
+    = "#{@user.name} (#{@user.email})"
+%p
+  Current date:  
+  = format_date @day
+  
+= form_for @user, :method=>:get do |f|
+  %p
+    Select date:
+    = datepicker_input :date_change, :date
+    = f.submit 'Change Date'
+    
+= link_to 'Back', user_path(@user)

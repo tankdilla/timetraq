@@ -8,8 +8,11 @@ FactoryGirl.define do
   factory :user do |f|
     name
     f.email 'user@email.com'
+    f.password 'password1'
+    f.password_confirmation 'password1'
   end
   
+user = User.create! :name => 'First User', :email => 'user@example.com', :password => 'please', :password_confirmation => 'please'
   factory :activity do |a|
     a.description 'mow the lawn'
     a.association :user
