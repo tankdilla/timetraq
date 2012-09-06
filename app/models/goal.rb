@@ -32,6 +32,9 @@ class Goal
   validates_presence_of :goal_amount_score, :if => Proc.new { |goal| goal.goal_amount_duration.nil? }
   validates_presence_of :goal_amount_duration, :if => Proc.new { |goal| goal.goal_amount_score.nil? }
   
+  #validates_numericality_of :goal_amount_score, :allow_blank? => true
+  #validates_numericality_of :goal_amount_duration, :allow_blank? => true
+  
   before_create :set_custom_id
   before_save :set_default_values
 
