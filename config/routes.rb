@@ -1,6 +1,10 @@
 Timetraq::Application.routes.draw do
   
-  resources :users do
+  get "home/index"
+
+  devise_for :users
+
+  resources :users, :only => :show do
     member do
       get 'change_date'
     end
@@ -18,8 +22,6 @@ Timetraq::Application.routes.draw do
      
     resources :tags
   end
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -70,7 +72,7 @@ Timetraq::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  # root :to => 'home#index'
   root :to => 'users#index'
 
   # See how all your routes lay out with "rake routes"

@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title
+			=page_title
+			
+    = stylesheet_link_tag    'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    = yield :head
+    /[if IE]
+      = javascript_include_tag 'html5'
+  
+  %body
+    %ul.hmenu
+      = render 'shared/navigation'
+    - flash.each do |name, msg|
+      = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+    %p.notice
+      = notice
+    %p.alert
+      = alert
+    = yield

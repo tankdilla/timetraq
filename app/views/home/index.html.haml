@@ -1,0 +1,9 @@
+%h1 Timetraq
+
+%table
+  %tr
+    %th 
+
+  - @users.each do |user|
+    %tr
+      %td= link_to user.name, user
