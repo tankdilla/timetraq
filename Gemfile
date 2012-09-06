@@ -24,3 +24,4 @@ end
 
 gem 'debugger'
 gem 'jquery_datepicker'
+gem 'omniauth'
