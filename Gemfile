@@ -25,3 +25,6 @@ end
 gem 'debugger'
 gem 'jquery_datepicker'
 gem 'omniauth'
+gem "omniauth-facebook"
+gem "heroku"
+gem "resque"

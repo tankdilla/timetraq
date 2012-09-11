@@ -65,6 +65,16 @@ Timetraq::Application.configure do
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
+  
+  config.action_mailer.smtp_settings = {
+      :address => "smtp.gmail.com",
+  		:port => 587,
+  		:domain => "heroku.com",
+  		:authentication => "plain",
+  		:user_name => "timetraqmail@gmail.com",
+  		:password => "tq8qartemit2012",
+  		:enable_starttls_auto => true
+  }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"

@@ -4,7 +4,7 @@ Timetraq::Application.routes.draw do
 
   devise_for :users
 
-  resources :users, :only => :show do
+  resources :users, :only => [:show, :destroy] do
     member do
       get 'change_date'
     end

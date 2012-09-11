@@ -31,12 +31,16 @@ class User
   field :confirmed_at, :type => Time
   field :confirmation_sent_at, :type => Time
   
+  field :provider
+  field :uid
+  
   field :name
   field :_id, type: String, default: ->{ name } #set this to have a custom id, prettier url
   
   validates_presence_of :name
   validates_uniqueness_of :name, :email, :case_sensitive => false
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :provider, :uid
 
   embeds_many :activities
   embeds_many :goals
