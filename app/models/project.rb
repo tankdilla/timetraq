@@ -6,7 +6,8 @@ class Project
   field :target_completion_date, type: Time
   field :referenced_subproject_ids, type: Array, :default=>[]
   field :referenced_by_super_project_ids, type: Array, :default=>[]
-  field :completion_date, type: Date
+  field :completed_ind, type: Boolean
+  field :completed_on, type: Date
   
   field :tag_ids, type: Array, :default=>[]
   

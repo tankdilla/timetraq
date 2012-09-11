@@ -7,8 +7,10 @@ class Goal
   field :summary
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
   field :project_id
+  field :started_on, type: Date
   field :target_completion_date, type: Date
-  field :goal_completed_at, type: Date
+  field :completed_ind, type: Boolean
+  field :completed_on, type: Date
   field :tracked_activity_ids, type: Array, :default=>[]
   field :referenced_subgoal_ids, type: Array, :default=>[]
   field :referenced_by_super_goal_ids, type: Array, :default=>[]
@@ -20,7 +22,8 @@ class Goal
     
   field :goal_frequency_unit #days, hours, minutes
   field :goal_frequency
-  field :goal_frequency_starting_on
+  
+  field :scratchpad
   
   embedded_in :user
   embedded_in :project
@@ -28,9 +31,12 @@ class Goal
   scope :in_progress, where(:completion_date.exists => false)
   scope :completed, where(:completion_date.exists => true)
   
+  validates_presence_of :started_on
   validates_presence_of :goal_type
   validates_presence_of :goal_amount_score, :if => Proc.new { |goal| goal.goal_amount_duration.nil? }
   validates_presence_of :goal_amount_duration, :if => Proc.new { |goal| goal.goal_amount_score.nil? }
+  
+  validates_uniqueness_of :name
   
   #validates_numericality_of :goal_amount_score, :allow_blank? => true
   #validates_numericality_of :goal_amount_duration, :allow_blank? => true

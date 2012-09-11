@@ -4,7 +4,7 @@ class User
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -26,6 +26,10 @@ class User
   field :last_sign_in_at,    :type => Time
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
+  
+  field :confirmation_token
+  field :confirmed_at, :type => Time
+  field :confirmation_sent_at, :type => Time
   
   field :name
   field :_id, type: String, default: ->{ name } #set this to have a custom id, prettier url

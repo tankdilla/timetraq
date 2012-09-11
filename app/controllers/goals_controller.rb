@@ -34,6 +34,8 @@ class GoalsController < ApplicationController
       @goal.project_id = params[:project_id]
       @goal.goal_type = "project-based"
     end
+    
+    @goal.started_on = Date.today
 
     respond_to do |format|
       format.html # new.html.erb
@@ -119,6 +121,27 @@ class GoalsController < ApplicationController
         @goal.untrack_activity(params[:activity][:id])
       else
         @goal.track_activity(params[:activity][:id])
+      end
+    end
+    debugger
+    
+    if params[:goal_amount] == "score"
+      if @goal.goal_amount_score.blank?
+        @goal.errors[:goal_amount_score] << "should be set."
+      end
+      
+      if !@goal.goal_amount_duration.blank?
+        @goal.goal_amount_duration = ""
+      end
+    end
+      
+    if params[:goal_amount] == "duration"
+      if @goal.goal_amount_duration.blank?
+        @goal.errors[:goal_amount_duration] << "should be set."
+      end
+      
+      if !@goal.goal_amount_score.blank?
+        @goal.goal_amount_score = ""
       end
     end
 

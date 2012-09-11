@@ -28,6 +28,9 @@
         = f.label :target_completion_date
         = f.datetime_select :target_completion_date
   .field
+    = f.label "Start tracking goal on:"
+    = f.datepicker :started_on, :dateFormat => "mm/dd/yy"
+  .field
     .recurring_fields
       = f.label "Set frequency for evaluating goal: "
       %br
@@ -50,14 +53,24 @@
   .field
     = f.label "Set goal by score or amount of time spent on activities"
     %p
-    = radio_button_tag :goal_amount, :score
+    = radio_button_tag :goal_amount, :score, !@goal.goal_amount_score.blank?
     Score: 
     = f.text_field :goal_amount_score, {:maxlength=>3, :size=>3}
     %p
-    = radio_button_tag :goal_amount, :duration
+    = radio_button_tag :goal_amount, :duration, !@goal.goal_amount_duration.blank?
     Duration: 
     = f.text_field :goal_amount_duration, {:maxlength=>3, :size=>3}
     = f.select :goal_amount_unit, ["", "minutes", "hours", "days"]
+  - if params[:completed] == "true"
+    .field
+      %p
+        Goal completed
+        = f.check_box :completed_ind
+      .completed_on
+        %p
+          Completed on:
+          = f.datepicker :completed_on, :dateFormat => "mm/dd/yy"
+        
   .actions
     = f.submit 'Save'
     
@@ -75,5 +88,22 @@
              $('.field .recurring_fields').hide();    
                }
       });
+      
+      
+      
+      if($("#goal_completed_ind").is(":checked")){
+         $('.field .completed_on').show();
+           }else{
+         $('.field .completed_on').hide();
+           }
+      $("input[name='goal[completed_ind]']").change(function(){
+          if($("#goal_completed_ind").is(":checked")){
+             $('.field .completed_on').show();
+               }else{
+             $('.field .completed_on').hide();
+               }
+      });
+      
+      
   });
     

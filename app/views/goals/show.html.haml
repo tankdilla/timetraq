@@ -9,6 +9,10 @@
     %b Summary:
     = @goal.summary
 
+%p
+  %b Goal started on:
+  = format_date(@goal.started_on || Date.today)
+
 - if !@goal.target_completion_date.blank?
   %p
     %b Target completion date:
@@ -46,6 +50,10 @@
 
 %p
   Currently tracking activities:
+  - if @tracked_activities.empty?
+    None. Create an 
+    = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
+    to link to your goal.
   %ul
     - @tracked_activities.each do |a|
       = a.description
@@ -77,5 +85,7 @@
   = link_to 'Back to Project', user_project_path(@user, @goal.project)
 \|
 = link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)
+\|
+= link_to 'Mark/Unmark Goal as Completed', edit_user_goal_path(@user, @goal, :completed=>true)
 \|
 = link_to 'Delete Goal', [@user, @goal], :confirm => 'Are you sure?', :method => :delete
