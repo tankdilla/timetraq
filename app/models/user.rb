@@ -34,6 +34,8 @@ class User
   field :provider
   field :uid
   
+  field :admin, :type=>Boolean
+  
   field :name
   field :_id, type: String, default: ->{ name } #set this to have a custom id, prettier url
   

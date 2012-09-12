@@ -1,5 +1,7 @@
 Timetraq::Application.routes.draw do
   
+  get "admin/index"
+
   get "home/index"
 
   devise_for :users

@@ -6,7 +6,7 @@ class UserDigestNotifier < ActionMailer::Base
   #
   #   en.user_digest_notifier.weekly_progress_report.subject
   #
-  def weekly_progress_report(@user)
+  def weekly_progress_report(user)
     @greeting = "Hi"
     
     user_email = @user.email

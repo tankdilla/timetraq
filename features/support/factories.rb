@@ -33,6 +33,7 @@ FactoryGirl.define do
   factory :goal do |g|
     g.name "Do something ambitious"
     g.goal_type "one-time"
+    g.started_on Time.now
     g.association :user
   end
 

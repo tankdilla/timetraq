@@ -5,5 +5,5 @@ run Timetraq::Application
 
 require 'resque/server'
 run Rack::URLMap.new \
-  "/"       => CookieMonster::Application,
+  "/"       => Timetraq::Application,
   "/resque" => Resque::Server.new
