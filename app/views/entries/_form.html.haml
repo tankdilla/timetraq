@@ -18,12 +18,13 @@
     = f.text_field :hours, :maxlength=>2, :size=>2
     = f.label :minutes
     = f.text_field :minutes, :maxlenght=>2, :size=>2
-  .field
-    = f.label :score
-    = f.number_field :score
+  - if @entry.score.nil?
+    .field
+      = f.label :score
+      = f.number_field :score
   - if @activity.tracked_by_goal?
     .field
-      = f.label "Apply toward project: "
+      = f.label "Apply toward goal: "
       = f.collection_select :toward_goal, @activity.goals_tracking_this_activity, :id, :name, {:include_blank=>true}
   .actions
     = f.submit 'Save'

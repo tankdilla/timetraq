@@ -11,7 +11,7 @@
     = f.text_field :name
     = f.hidden_field :project_id
   .field
-    = f.label :summary
+    = f.label "Additional notes:"
     = f.text_field :summary
   .field
     - if !@goal.project_id.blank?

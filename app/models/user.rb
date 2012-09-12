@@ -34,8 +34,6 @@ class User
   field :provider
   field :uid
   
-  field :admin, :type=>Boolean
-  
   field :name
   field :_id, type: String, default: ->{ name } #set this to have a custom id, prettier url
   
@@ -86,5 +84,29 @@ class User
     # look for entries from prior entries from the same day of the week
     # On screen have it say something like: on average, this is what you usually do
     
+  end
+  
+  def digest(as_on=Date.today, summary_period="current_week")
+    from_date, through_date = get_digest_dates(as_on, summary_period)
+    
+    p = projects.where(completion_on: nil).or(completed_on)
+  end
+  
+  def get_digest_dates(as_on, summary_period)
+    beginning_of_week = as_on.beginning_of_week(:sunday)
+    end_of_week = as_on.end_of_week(:saturday)
+    
+    case summary_period
+    when "last_week"
+      [beginning_of_week - 1.week, end_of_week - 1.week]
+    when "2 weeks ago"
+      [beginning_of_week - 2.week, end_of_week - 2.week]
+    when "3 weeks ago"
+      [beginning_of_week - 3.week, end_of_week - 3.week]
+    when "last month"
+      [beginning_of_week - 1.month, end_of_week - 1.month]
+    else #current week is default
+      [beginning_of_week, end_of_week]
+    end
   end
 end

@@ -14,6 +14,10 @@ When /^enter an email$/ do
   fill_in('Email', :with => 'user@email.com')
 end
 
+When /^enter a password$/ do
+  fill_in('Password', :with => 'please')
+end
+
 When /^I click the button "(.*?)"/ do |arg1|
   click_button(arg1)
 end
@@ -33,6 +37,8 @@ Given /^there is a user$/ do
   fill_in "user_email", :with=>@user.email
   fill_in "user_password", :with=>@user.password
   click_button "Sign in"
+  
+  steps %{Then I should see "Signed in successfully."}
 end
 
 Given /^the user has created an activity called "(.*?)"$/ do |text|

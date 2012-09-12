@@ -43,6 +43,12 @@ class Goal
   
   before_create :set_custom_id
   before_save :set_default_values
+  
+  scope :on, ->(date){ where(:start_time.gte => date).where(:start_time.lte => date+1.day) }
+  scope :since, ->(date){ where(:start_time.gte => date)}
+  
+  scope :from, ->(date){ where(:started_on.gte => date)}
+  scope :through, ->(date){ where(:started_on.lte => date)}
 
   def set_custom_id
     #if !self._id.nil?

@@ -7,9 +7,10 @@ FactoryGirl.define do
 
   factory :user do |f|
     name
-    f.email 'user@email.com'
-    f.password 'password1'
-    f.password_confirmation 'password1'
+    f.email 'user@example.com'
+    f.password 'please'
+    f.password_confirmation 'please'
+    f.confirmed_at Date.today
   end
   
   factory :activity do |a|
