@@ -123,7 +123,6 @@ class GoalsController < ApplicationController
         @goal.track_activity(params[:activity][:id])
       end
     end
-    debugger
     
     if params[:goal_amount] == "score"
       if @goal.goal_amount_score.blank?

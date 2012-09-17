@@ -92,9 +92,9 @@ class User
     p = projects.where(completion_on: nil).or(completed_on)
   end
   
-  def get_digest_dates(as_on, summary_period)
+  def get_digest_dates(as_on, summary_period=nil)
     beginning_of_week = as_on.beginning_of_week(:sunday)
-    end_of_week = as_on.end_of_week(:saturday)
+    end_of_week = as_on.end_of_week(:sunday)
     
     case summary_period
     when "last_week"

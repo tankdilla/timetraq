@@ -27,6 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = @user.projects.new
+    @project.started_on = Date.today
 
     respond_to do |format|
       format.html # new.html.erb

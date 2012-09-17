@@ -10,7 +10,10 @@
     = f.label :name
     = f.text_field :name
   .field
+    = f.label :started_on
+    = f.date_select :started_on
+  .field
     = f.label :target_completion_date
-    = f.datetime_select :target_completion_date
+    = f.date_select :target_completion_date
   .actions
     = f.submit 'Save'

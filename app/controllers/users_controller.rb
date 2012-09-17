@@ -28,6 +28,8 @@ class UsersController < ApplicationController
     @day_target = @user.day_target(@day)
     
     @activities = @user.activities || []
+    
+    @from_date, @through_date = @user.get_digest_dates(session[:day])
 
     respond_to do |format|
       format.html # show.html.erb

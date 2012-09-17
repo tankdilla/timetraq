@@ -9,27 +9,8 @@
   = format_date @day
   = link_to 'Change Date', change_date_user_path(@user)
 
-%p
-  - unless @user.projects.blank? && @user.projects.in_progress.blank?
-    Projects:
-    = render :partial => 'projects/list_projects', :locals => {:projects=>@user.projects.in_progress}
-    
-- if !@day_target.nil?
-  %p
-    Your target score for today is:
-    = @day_target.score
 
-  %p
-    Based on your preferences and goals, this score accounts for the following:
-  
-  %ul
-    - @day_target.target_activities.each do |a|
-      %li
-        = a.activity.description
-
-- if !@day_entries.blank?
-  Recent activity entries logged:
-  = render :partial => 'entries/list_entries', :locals=>{:entries=>@day_entries}
+= render :partial => (true ? "digest" : "show_summary"), :locals => {:from_date=>@from_date, :through_date=>@through_date}
     
 - if !@activities.blank?
   %p

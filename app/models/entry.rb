@@ -17,12 +17,13 @@ class Entry
   
   before_save :set_default_score
   
-  scope :from_today, where(:start_time.gte => Date.today).where(:start_time.lte => Date.today+1.day)
-  scope :on, ->(date){ where(:start_time.gte => date).where(:start_time.lte => date+1.day) }
-  scope :since, ->(date){ where(:start_time.gte => date)}
+  scope :from_today, gte(start_time: Date.today).lte(start_time: Date.today+1.day)
+  scope :on, ->(date){ gte(start_time: date).lte(start_time: date+1.day) }
+  scope :since, ->(date){ gte(start_time: date)}
   
-  scope :from, ->(date){ where(:start_time.gte => date)}
-  scope :through, ->(date){ where(:start_time.lte => date)}
+  scope :from, ->(date){ gte(start_time: date)}
+  scope :through, ->(date){ lte(start_time: date)}
+  scope :for_dates, ->(from_date, thru_date){ gte(start_time: from_date).lte(start_time: thru_date)}
   
   def duration_string
     string = ""

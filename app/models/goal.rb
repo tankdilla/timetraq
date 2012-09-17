@@ -72,8 +72,19 @@ class Goal
     user.activities.nin(id: tracked_activity_ids)
   end
   
-  def entries
-    tracked_activities.entries.collect{|a| a.entries}.flatten
+  def entries(from_date=nil, thru_date=nil)
+    e = 
+      if from_date.nil? && thru_date.nil?
+        tracked_activities.collect{|a| a.entries}
+      else
+        if thru_date.nil?
+          tracked_activities.collect{|a| a.entries.for_dates(from_date, Date.today)}
+        else    
+          tracked_activities.collect{|a| a.entries.for_dates(from_date, thru_date)}
+        end
+      end
+    
+    e.flatten
   end
 
   def project
@@ -110,12 +121,31 @@ class Goal
     {:days=>days, :hours=>hours, :minutes=>minutes}
   end
   
-  def current_duration
-    minutes = entries.inject(0){|score, entry| score += entry.minutes}
-    hours = entries.inject(0){|score, entry| score += entry.hours}
-    days = entries.inject(0){|score, entry| score += entry.days}
+  def current_duration(duration_entries=entries)
+    minutes = entries.inject(0){|score, entry| score += entry.minutes.to_i}
+    hours = entries.inject(0){|score, entry| score += entry.hours.to_i}
+    days = entries.inject(0){|score, entry| score += entry.days.to_i}
     
     normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
+  end
+  
+  def current_duration_string(duration_entries=entries)
+    duration_hash = current_duration(duration_entries)
+    
+    string = ""
+    if duration_hash[:days].to_i > 0
+      string += "#{duration_hash[:days]} days, "
+    end
+    
+    if duration_hash[:hours].to_i > 0
+      string += "#{duration_hash[:hours]} hours, "
+    end
+    
+    if duration_hash[:minutes].to_i > 0
+      string += "#{duration_hash[:minutes]} minutes"
+    end
+    
+    string
   end
   
   def duration_needed
@@ -156,8 +186,8 @@ class Goal
     goal_string
   end
   
-  def current_score
-    entries.inject(0){|score, entry| score += entry.score}
+  def current_score(score_entries=entries)
+    score_entries.inject(0){|score, entry| score += entry.score}
   end
   
   def points_needed

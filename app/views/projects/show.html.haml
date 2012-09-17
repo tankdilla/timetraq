@@ -3,9 +3,13 @@
 %p
   %b Name:
   = @project.name
+- unless @project.started_on.blank?
+  %p
+    %b Started on:
+    = format_date(@project.started_on)
 %p
   %b Target completion date:
-  = format_datetime @project.target_completion_date
+  = format_date @project.target_completion_date
 -if !@project.goals.blank?
   Project Goals:
   %ul
