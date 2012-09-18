@@ -1,23 +1,16 @@
-%p
-  Project summary for
-  = "#{from_date} through #{through_date}"
+.digest
+  - unless @user.projects.blank?
+    #project_summary
+      %p
+        Project summary for
+        = "#{from_date} through #{through_date}"
+      
+      = render :partial => "project_digest", :locals=>{:projects=>@user.projects, :from_date=>from_date, :through_date=>through_date}
   
-- @user.projects.each do |p|
-  = p.name
-  %ul
-    - p.goals.each do |g|
-      %li
-        = g.name
-        %br
-        %b
-          = "Score: #{g.current_score(g.entries(from_date, through_date))}"
-        %br
-        %b
-          = "Duration: #{g.current_duration_string(g.entries(from_date, through_date))}"
-        %ul
-          - g.tracked_activities.each do |a|
-            %li
-              = a.description
-            - unless a.entries.for_dates(from_date, through_date).empty?
-              = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries.for_dates(from_date, through_date)}
-              
+  - unless @user.goals.non_project.blank?
+    #goal_summary  
+      %p
+        Goals summary for
+        = "#{from_date} through #{through_date}"
+      
+      = render :partial => "goal_digest", :locals=>{:goals=>@user.goals.non_project, :from_date=>from_date, :through_date=>through_date}

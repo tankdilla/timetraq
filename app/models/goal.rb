@@ -26,7 +26,6 @@ class Goal
   field :scratchpad
   
   embedded_in :user
-  embedded_in :project
   
   scope :in_progress, where(:completion_date.exists => false)
   scope :completed, where(:completion_date.exists => true)
@@ -49,6 +48,8 @@ class Goal
   
   scope :from, ->(date){ where(:started_on.gte => date)}
   scope :through, ->(date){ where(:started_on.lte => date)}
+  
+  scope :non_project, exists(project_id: false)
 
   def set_custom_id
     #if !self._id.nil?
@@ -87,7 +88,7 @@ class Goal
     e.flatten
   end
 
-  def project
+  def project #a goal can belong to a project, but goal isn't embedded
     user.projects.find(project_id) unless project_id.blank?
   end
 
@@ -102,50 +103,16 @@ class Goal
     self.save!
   end
   
-  def normalize_duration(duration_hash)
-    days = hours = minutes = 0
-    if duration_hash[:minutes] > 60
-      hours = duration_hash[:minutes] / 60
-      minutes = duration_hash[:minutes] % 60
-    end
-    
-    if duration_hash[:hours] > 24
-      hours += duration_hash[:hours] / 24
-      days = duration_hash[:hours] % 24
-    end
-    
-    if duration_hash[:days]
-      days += duration_hash[:days]
-    end
-    
-    {:days=>days, :hours=>hours, :minutes=>minutes}
-  end
-  
-  def current_duration(duration_entries=entries)
+  def duration(duration_entries=entries)
     minutes = entries.inject(0){|score, entry| score += entry.minutes.to_i}
     hours = entries.inject(0){|score, entry| score += entry.hours.to_i}
     days = entries.inject(0){|score, entry| score += entry.days.to_i}
     
-    normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
+    user.normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
   end
   
-  def current_duration_string(duration_entries=entries)
-    duration_hash = current_duration(duration_entries)
-    
-    string = ""
-    if duration_hash[:days].to_i > 0
-      string += "#{duration_hash[:days]} days, "
-    end
-    
-    if duration_hash[:hours].to_i > 0
-      string += "#{duration_hash[:hours]} hours, "
-    end
-    
-    if duration_hash[:minutes].to_i > 0
-      string += "#{duration_hash[:minutes]} minutes"
-    end
-    
-    string
+  def duration_string(duration_hash)
+    user.duration_string(duration_hash)
   end
   
   def duration_needed

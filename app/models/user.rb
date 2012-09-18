@@ -109,4 +109,46 @@ class User
       [beginning_of_week, end_of_week]
     end
   end
+  
+  #These methods will eventually go in a module or other class
+  def normalize_duration(duration_hash)
+    
+    days = hours = minutes = 0
+    if duration_hash[:minutes] > 60
+      hours = duration_hash[:minutes] / 60
+      minutes = duration_hash[:minutes] % 60
+    else
+      minutes = duration_hash[:minutes]
+    end
+    
+    if duration_hash[:hours] > 24
+      hours += duration_hash[:hours] / 24
+      days = duration_hash[:hours] % 24
+    else
+      hours += duration_hash[:hours]
+    end
+    
+    if duration_hash[:days]
+      days += duration_hash[:days]
+    end
+    
+    {:days=>days, :hours=>hours, :minutes=>minutes}
+  end
+  
+  def duration_string(duration_hash)
+    string = ""
+    if duration_hash[:days].to_i > 0
+      string += "#{duration_hash[:days]} days, "
+    end
+    
+    if duration_hash[:hours].to_i > 0
+      string += "#{duration_hash[:hours]} hours, "
+    end
+    
+    #if duration_hash[:minutes].to_i > 0
+      string += "#{duration_hash[:minutes]} minutes"
+    #end
+    
+    string
+  end
 end

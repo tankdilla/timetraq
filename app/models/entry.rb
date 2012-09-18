@@ -35,7 +35,7 @@ class Entry
   end
   
   def set_default_score
-    if self.score.nil?
+    if self.score.nil? || self.score == 0
       self.score = self.activity.activity_score * multiplier
     end
   end

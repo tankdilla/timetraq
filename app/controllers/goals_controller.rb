@@ -4,7 +4,7 @@ class GoalsController < ApplicationController
   # GET /goals
   # GET /goals.json
   def index
-    @goals = @user.goals.all
+    @goals = @user.goals.non_project
 
     respond_to do |format|
       format.html # index.html.erb
