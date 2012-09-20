@@ -16,6 +16,7 @@ class Project
   
   scope :in_progress, exists(completion_date: false)
   scope :completed, exists(completion_date: true)
+  scope :started, exists(started_on: true)
 
   def goals #a project has goals, but not embedded
     @user.goals.where(project_id: id.to_s)

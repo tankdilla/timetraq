@@ -27,8 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = @user.projects.new
-    @project.started_on = Date.today
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project }
@@ -44,6 +43,10 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = @user.projects.new(params[:project])
+    
+    if params["starting"] == "pending"
+      @project.started_on = nil
+    end
 
     respond_to do |format|
       if @project.save
@@ -60,9 +63,14 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   def update
     @project = @user.projects.find(params[:id])
+    @project.update_attributes(params[:project])
+    if params["starting"] == "pending"
+      @project.started_on = nil
+      @project.target_completion_date = nil
+    end
 
     respond_to do |format|
-      if @project.update_attributes(params[:project])
+      if @project.save
         format.html { redirect_to [@user, @project], notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else

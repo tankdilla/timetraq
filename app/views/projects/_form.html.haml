@@ -7,13 +7,19 @@
           %li= msg
 
   .field
-    = f.label :name
+    = f.label "Project Name: "
     = f.text_field :name
   .field
-    = f.label :started_on
+    = f.label "Starting:"
+    %br
+    = radio_button_tag :starting, :pending, @project.started_on.blank?
+    Not yet
+    %br
+    = radio_button_tag :starting, :set_date, !@project.started_on.blank?
     = f.date_select :started_on
-  .field
-    = f.label :target_completion_date
-    = f.date_select :target_completion_date
+  - unless @project.started_on.blank?  
+    .field
+      = f.label :target_completion_date
+      = f.date_select :target_completion_date
   .actions
     = f.submit 'Save'

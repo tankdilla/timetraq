@@ -86,12 +86,6 @@ class User
     
   end
   
-  def digest(as_on=Date.today, summary_period="current_week")
-    from_date, through_date = get_digest_dates(as_on, summary_period)
-    
-    p = projects.where(completion_on: nil).or(completed_on)
-  end
-  
   def get_digest_dates(as_on, summary_period=nil)
     beginning_of_week = as_on.beginning_of_week(:sunday)
     end_of_week = as_on.end_of_week(:sunday)
@@ -108,6 +102,14 @@ class User
     else #current week is default
       [beginning_of_week, end_of_week]
     end
+  end
+  
+  def duration(entries)
+    minutes = entries.inject(0){|score, entry| score += entry.minutes.to_i}
+    hours = entries.inject(0){|score, entry| score += entry.hours.to_i}
+    days = entries.inject(0){|score, entry| score += entry.days.to_i}
+    
+    normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
   end
   
   #These methods will eventually go in a module or other class
@@ -150,5 +152,26 @@ class User
     #end
     
     string
+  end
+
+  def score_for_dates(from_date, through_date)
+    #total score of projects, goals unrelated to projects, and activities unrelated to goals or projects, over a period of time
+    
+    activities.inject(0){|total_score, activity| total_score += activity.entries.for_dates(from_date, through_date).inject(0) {|score, entry| score += entry.score}}
+    
+  end
+  
+  def duration_for_dates(from_date, through_date)
+    #total duration of projects, goals unrelated to projects, and activities unrelated to goals or projects, over a period of time
+    
+    sum_hash = {:days=>0, :hours=>0, :minutes=>0}
+    
+    activities.each do |activity|
+      sum_hash[:days] += duration(activity.entries)[:days]
+      sum_hash[:hours] += duration(activity.entries)[:hours]
+      sum_hash[:minutes] += duration(activity.entries)[:minutes]
+    end
+    
+    normalize_duration(sum_hash)
   end
 end

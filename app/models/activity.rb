@@ -2,7 +2,6 @@ class Activity
   include Mongoid::Document
   field :description
   field :_id, type: String, default: ->{ description }
-  #field :priority, type: Integer
   
   field :tag_ids, type: Array, :default=>[]
   
@@ -11,10 +10,9 @@ class Activity
   embedded_in :user
   embeds_many :entries
   embeds_many :components
-  #embeds_many :execution_steps
   
   before_create :set_defaults
-
+  
   def set_defaults
     self._id = description.gsub(" ", "_")
   end
@@ -32,10 +30,18 @@ class Activity
 
     score
   end
+  
+  def duration(duration_entries=entries)
+    minutes = duration_entries.inject(0){|score, entry| score += entry.minutes.to_i}
+    hours = duration_entries.inject(0){|score, entry| score += entry.hours.to_i}
+    days = duration_entries.inject(0){|score, entry| score += entry.days.to_i}
+    
+    user.normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
+  end
 
   def goals_tracking_this_activity
-    if !@user.goals.blank?
-      @user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}.compact
+    if !user.goals.blank?
+      user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}.compact
     else
       []
     end

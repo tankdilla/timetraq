@@ -5,7 +5,7 @@
         Project summary for
         = "#{from_date} through #{through_date}"
       
-      = render :partial => "project_digest", :locals=>{:projects=>@user.projects, :from_date=>from_date, :through_date=>through_date}
+      = render :partial => "project_digest", :locals=>{:projects=>@user.projects.started, :from_date=>from_date, :through_date=>through_date}
   
   - unless @user.goals.non_project.blank?
     #goal_summary  

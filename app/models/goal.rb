@@ -74,6 +74,8 @@ class Goal
   end
   
   def entries(from_date=nil, thru_date=nil)
+    #Because of the way i am storing the activities (not embedded or referenced), 
+    # this method collects entries for tracked activities.
     e = 
       if from_date.nil? && thru_date.nil?
         tracked_activities.collect{|a| a.entries}
@@ -104,9 +106,9 @@ class Goal
   end
   
   def duration(duration_entries=entries)
-    minutes = entries.inject(0){|score, entry| score += entry.minutes.to_i}
-    hours = entries.inject(0){|score, entry| score += entry.hours.to_i}
-    days = entries.inject(0){|score, entry| score += entry.days.to_i}
+    minutes = duration_entries.inject(0){|score, entry| score += entry.minutes.to_i}
+    hours = duration_entries.inject(0){|score, entry| score += entry.hours.to_i}
+    days = duration_entries.inject(0){|score, entry| score += entry.days.to_i}
     
     user.normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
   end

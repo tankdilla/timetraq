@@ -3,13 +3,18 @@
 %p
   %b Name:
   = @project.name
-- unless @project.started_on.blank?
-  %p
-    %b Started on:
-    = format_date(@project.started_on)
+  
 %p
-  %b Target completion date:
-  = format_date @project.target_completion_date
+  %b Started on:
+  - unless @project.started_on.blank?
+    = format_date(@project.started_on)
+  - else
+    Project pending
+    
+- unless @project.target_completion_date.blank?
+  %p
+    %b Target completion date:
+    = format_date @project.target_completion_date
 -if !@project.goals.blank?
   Project Goals:
   %ul
@@ -17,10 +22,14 @@
       %li
         = link_to g.name, user_goal_path(@user, g)
 
-= link_to 'Edit', edit_user_project_path(@user, @project)
+- if @project.started_on.blank?
+  = link_to 'Edit/Start Project', edit_user_project_path(@user, @project)
+- else
+  = link_to 'Edit', edit_user_project_path(@user, @project)
 \|
 = link_to 'Back', user_projects_path(@user)
-\|
-= link_to 'Add project goal', new_user_project_goal_path(@user, @project)
+- unless @project.started_on.blank?
+  \|
+  = link_to 'Add project goal', new_user_project_goal_path(@user, @project)
 \|
 = link_to 'Destroy', [@user, @project], :confirm => 'Are you sure?', :method => :delete
