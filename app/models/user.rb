@@ -153,6 +153,17 @@ class User
     
     string
   end
+  
+  def untracked_activities
+    #user.activities.nin(id: tracked_activity_ids)
+    
+    goal_tracked_activities = goals.map{|g| g.tracked_activity_ids}.flatten.uniq
+    activities.nin(id: goal_tracked_activities)
+  end
+  
+  def score_for(date, time_period)
+    
+  end
 
   def score_for_dates(from_date, through_date)
     #total score of projects, goals unrelated to projects, and activities unrelated to goals or projects, over a period of time

@@ -6,7 +6,7 @@ class Goal
   field :_id, type: String, default: ->{ name }
   field :summary
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
-  field :project_id
+  field :project_id, default: nil
   field :started_on, type: Date
   field :target_completion_date, type: Date
   field :completed_ind, type: Boolean
