@@ -63,6 +63,10 @@ class Goal
       self.goal_frequency = nil
       self.goal_frequency_starting_on = nil
     end
+
+    if self.project_id.blank?
+      self.project_id = nil
+    end
   end
   
   def tracked_activities
@@ -157,6 +161,10 @@ class Goal
   
   def current_score(score_entries=entries)
     score_entries.inject(0){|score, entry| score += entry.score}
+  end
+
+  def score(from_date, through_date)
+    entries(from_date, through_date).inject(0){|score, entry| score += entry.score}
   end
   
   def points_needed

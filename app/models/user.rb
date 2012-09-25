@@ -161,14 +161,19 @@ class User
     activities.nin(id: goal_tracked_activities)
   end
   
-  def score_for(date, time_period)
-    
+  def score_for(date=Date.today, time_period="this_week")
+
+    from_date, through_date = get_digest_dates(date, time_period)
+    total_score = projects.inject(0){|score, project| score += project.score(from_date, through_date)}
+    total_score += goals.non_project.inject(0){|score, goal| score += goal.score(from_date, through_date)}
+    total_score += untracked_activities.inject(0){|score, activity| activity.entries.for_dates(from_date, through_date).inject(0){|score, entry| score += entry.score}}
+    total_score
   end
 
   def score_for_dates(from_date, through_date)
     #total score of projects, goals unrelated to projects, and activities unrelated to goals or projects, over a period of time
     
-    activities.inject(0){|total_score, activity| total_score += activity.entries.for_dates(from_date, through_date).inject(0) {|score, entry| score += entry.score}}
+    activities.inject(0){|total_score, activity| total_score += activity.entries.for_dates(from_date, through_date).inject(0) {|e_score, entry| e_score += entry.score}}
     
   end
   

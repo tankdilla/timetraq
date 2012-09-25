@@ -26,6 +26,9 @@
     Goal checked every
     = @goal.goal_frequency
     = @goal.goal_frequency_unit
+- if @goal.goal_type == "project-based"
+  Linked to:
+  = link_to @goal.project.name, [@goal.user, @goal.project]
 
 - if !@goal.goal_amount_score.blank?
   %p
@@ -56,7 +59,7 @@
     to link to your goal.
   %ul
     - @tracked_activities.each do |a|
-      = a.description
+      = link_to a.description, [a.user, a]
       %br
         = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries}
 

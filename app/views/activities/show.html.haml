@@ -15,6 +15,12 @@
   Recent Activity Entries
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
 
+- unless @activity.goals_tracking_this_activity.blank?
+  Linked to goal:
+  %ul
+    - @activity.goals_tracking_this_activity.each do |g|
+      %li
+        = link_to g.name, [g.user, g]
 Tags:
 - @applied_tags.each do |tag|
   = link_to tag.description, [tag.user, tag]
