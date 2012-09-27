@@ -22,7 +22,7 @@ group :test do
   gem "factory_girl_rails"
 end
 
-gem 'debugger'
+#gem 'debugger'
 gem 'jquery_datepicker'
 gem 'omniauth'
 gem "omniauth-facebook"
