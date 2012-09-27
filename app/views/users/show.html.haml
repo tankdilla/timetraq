@@ -11,12 +11,15 @@
 
 %p
   Score for this week:
-  = @user.score_for
+  = @user.score_for(session[:day])
   %br
-  Score for last week:
-  = link_to "last week", user_path(@user, :date_change=>{:date=>@user.get_digest_dates(session[:day], "last_week")})
-  = @user.score_for(Date.today, "last_week")
-
+  Score for
+  = link_to "last week:", user_path(@user, :date_change=>{:date=>session[:day] - 1.week})
+  = @user.score_for(session[:day], "last_week")
+  - if session[:day].to_date != Date.today
+    %br
+    = link_to "Back to today", user_path(@user, :date_change=>{:date=>Date.today})
+    
 = render :partial => (true ? "digest" : "show_summary"), :locals => {:from_date=>@from_date, :through_date=>@through_date}
     
 - if !@activities.blank?
