@@ -66,16 +66,24 @@ test:
         - localhost:27017
       options:
         consistency: :strong
-<% if ENV['MONGOLAB_URI'] %>
-  <% uri = URI.parse(ENV['MONGOLAB_URI']) %>
-production:
-  <<: *defaults
+#<% if ENV['MONGOLAB_URI'] %>
+#  <% uri = URI.parse(ENV['MONGOLAB_URI']) %>
+#production:
+#  <<: *defaults
+#  sessions:
+#    default:
+#      <<: *default_session
+#      database: <%= uri.path.sub('/','') %>
+#      username: <%= uri.user %>
+#      password: <%= uri.password %>
+#      hosts:
+#        - <%= uri.host %>:<%= uri.port %>
+#<% end %>
+
+production:   
   sessions:
     default:
-      <<: *default_session
-      database: <%= uri.path.sub('/','') %>
-      username: <%= uri.user %>
-      password: <%= uri.password %>
-      hosts:
-        - <%= uri.host %>:<%= uri.port %>
-<% end %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        skip_version_check: true
+        safe: true
