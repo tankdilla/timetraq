@@ -20,8 +20,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     if params[:date_change] && params[:date_change][:date]
-      #session[:day] = Date.strptime(params[:date_change][:date], "%m/%d/%Y")
-      session[:day] = Date.strptime(params[:date_change][:date], "%Y-%m-%d")
+      if params[:date_change][:date].split("/").size > 1
+        session[:day] = Date.strptime(params[:date_change][:date], "%m/%d/%Y")
+      elsif params[:date_change][:date].split("-").size > 1
+        session[:day] = Date.strptime(params[:date_change][:date], "%Y-%m-%d")  
+      end
     end
     
     @day = session[:day]
