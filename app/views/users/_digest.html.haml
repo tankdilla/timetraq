@@ -1,7 +1,7 @@
 .digest
   - unless @user.projects.blank?
     #project_summary
-      %p
+      %b
         Project summary for
         = "#{from_date} through #{through_date}"
       
@@ -9,8 +9,8 @@
   
   - unless @user.goals.non_project.blank?
     #goal_summary  
-      %p
-        Goals summary for
+      %b
+        Non-project goal summary for
         = "#{from_date} through #{through_date}"
       
       = render :partial => "goal_digest", :locals=>{:goals=>@user.goals.non_project, :from_date=>from_date, :through_date=>through_date}

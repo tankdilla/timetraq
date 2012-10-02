@@ -1,16 +1,15 @@
 #goal_digest
   - goals.each do |g|
-    %h4
+    %p
       Goal: 
       = g.name
-    %b
       = "Score: #{g.current_score(g.entries(from_date, through_date))}"
-    %br
-    %b
       = "Duration: #{g.duration_string(g.duration(g.entries(from_date, through_date)))}"
-    %ul
-      - g.tracked_activities.each do |a|
-        %li
-          = a.description
-        - unless a.entries.for_dates(from_date, through_date).empty?
-          = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries.for_dates(from_date, through_date)}
+    - unless g.tracked_activities.empty?
+      Goal-related activities
+      %ul
+        - g.tracked_activities.each do |a|
+          %li
+            = a.description
+          - unless a.entries.for_dates(from_date, through_date).empty?
+            = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries.for_dates(from_date, through_date)}
