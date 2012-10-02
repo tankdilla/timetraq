@@ -12,7 +12,7 @@
     = f.hidden_field :project_id
   .field
     = f.label "Additional notes:"
-    = f.text_field :summary
+  = f.text_area :notes, :size=>"50x10"
   .field
     - if !@goal.project_id.blank?
       = f.label "Goal type: Project"

@@ -1,11 +1,9 @@
 #project_digest
   - projects.each do |p|
-    %h3
-      Project name: 
+    %p
+      Project name:
       = p.name
-    %b
-      = "Project Score: #{p.score(from_date, through_date)}"
+    = "Project Score: #{p.score(from_date, through_date)}"
     %br
-    %b
-      = "Project Duration: #{p.duration_string(p.duration(from_date, through_date))}"
+    = "Project Duration: #{p.duration_string(p.duration(from_date, through_date))}"
     = render :partial => "goal_digest", :locals=>{:goals=>p.goals, :from_date=>from_date, :through_date=>through_date}

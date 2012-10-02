@@ -4,7 +4,7 @@ class Goal
   
   field :name
   field :_id, type: String, default: ->{ name }
-  field :summary
+  field :notes
   field :goal_type #1 = one-time, 2 = recurring, 3 = project-based
   field :project_id, default: nil
   field :started_on, type: Date
@@ -22,8 +22,6 @@ class Goal
     
   field :goal_frequency_unit #days, hours, minutes
   field :goal_frequency
-  
-  field :scratchpad
   
   embedded_in :user
   
