@@ -1,11 +1,14 @@
 source 'http://rubygems.org'
-ruby '1.9.3'
+#ruby '1.9.3'
 gem 'rails', '3.2.8'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem 'bootstrap-sass', '~> 2.2.1.1'
+
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+
 gem 'jquery-rails'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
@@ -21,11 +24,18 @@ group :test do
   gem "cucumber-rails", ">= 1.3.0", :require => false
   gem "launchy", ">= 2.1.2"
   gem "factory_girl_rails"
+  gem "debugger"
+  gem "autotest"  
 end
 
-#gem 'debugger'
+group :development do
+  gem "debugger"
+end
+
+gem 'thin'
+
 gem 'jquery_datepicker'
-gem 'omniauth'
-gem "omniauth-facebook"
+#gem 'omniauth'
+#gem "omniauth-facebook"
 gem "heroku"
 gem "resque"

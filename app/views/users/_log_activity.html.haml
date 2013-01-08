@@ -1,0 +1,8 @@
+- if !user.activities.blank?
+  %p
+    Log activity entry for:
+    
+    %ul
+      - user.activities.each do |activity|
+        %li
+          = link_to "#{activity.description}", new_user_activity_entry_path(user, activity)

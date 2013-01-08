@@ -20,16 +20,9 @@
     %br
     = link_to "Back to today", user_path(@user, :date_change=>{:date=>Date.today})
     
-= render :partial => (true ? "digest" : "show_summary"), :locals => {:from_date=>@from_date, :through_date=>@through_date}
-    
-- if !@activities.blank?
-  %p
-    Log activity entry for:
-    
-    %ul
-      - @activities.each do |activity|
-        %li
-          = link_to "#{activity.description}", new_user_activity_entry_path(@user, activity)
+= render :partial => (false ? "digest" : "show_summary"), :locals => {:from_date=>@from_date, :through_date=>@through_date}
+
+= render :partial => "log_activity", :locals => {:user=>@user}
 
 = link_to 'Activities', user_activities_path(@user)
 \|
