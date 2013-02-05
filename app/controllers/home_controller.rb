@@ -4,4 +4,17 @@ class HomeController < ApplicationController
     
     session[:day] = Date.today
   end
+  
+  def guest
+    guest_user = User.where(name: "guest").first
+    if guest_user.nil?
+      guest_user = User.new(name: "guest", email: "guest@email.com", password: "123456")
+      guest_user.confirmed_at = Date.today
+      guest_user.encrypted_password = "123456"
+      guest_user.save
+    end
+    
+    guest_user.demo_data
+    redirect_to guest_user
+  end
 end

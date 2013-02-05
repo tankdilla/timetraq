@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b
+    = "#{@user.name} (#{@user.email})"
+
+%p
+  Summary for
+  = format_date @day
+  = link_to 'Change Date', change_date_user_path(@user)
+
+%p
+  Score for this week:
+  = @user.score_for(session[:day])
+  %br
+  Score for
+  = link_to "last week:", user_path(@user, :date_change=>{:date=>session[:day] - 1.week})
+  = @user.score_for(session[:day], "last_week")
+  - if session[:day].to_date != Date.today
+    %br
+    = link_to "Back to today", user_path(@user, :date_change=>{:date=>Date.today})
+    
+= render :partial => (false ? "digest" : "show_summary"), :locals => {:from_date=>@from_date, :through_date=>@through_date}
+
+= render :partial => "log_activity", :locals => {:user=>@user}
+
+= link_to 'Activities', user_activities_path(@user)
+\|
+= link_to 'Individual Goals', user_goals_path(@user)
+\|
+= link_to 'Projects', user_projects_path(@user)
+\|
+= link_to 'Tags', user_tags_path(@user)
+\|
+= link_to 'Destroy User', @user, :confirm => 'Are you sure?', :method => :delete
+

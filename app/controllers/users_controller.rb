@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate
   
   # GET /users
   # GET /users.json
@@ -105,5 +105,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     @day = session[:day]
+  end
+  
+  def authenticate
+    if params[:id] != "guest"  
+      authenticate_user!
+    else
+      true
+    end
   end
 end

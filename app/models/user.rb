@@ -190,4 +190,22 @@ class User
     
     normalize_duration(sum_hash)
   end
+  
+  def demo_data
+    #clear user data
+    clear_data
+    tags.create!(description: "Productive", classification: 1)
+    tags.create!(description: "Neutral", classification: 0)
+    tags.create!(description: "Non-Productive", classification: -1)
+    #create initial tags, test activity, goal, project
+  end
+  
+  private
+  def clear_data
+    projects.destroy_all
+    goals.destroy_all
+    activities.destroy_all
+    tags.destroy_all
+  end
+  
 end
