@@ -16,10 +16,10 @@
     Not yet
     %br
     = radio_button_tag :starting, :set_date, !@project.started_on.blank?
-    = f.date_select :started_on
+    = f.date_select :started_on, {}, :class=>"span1"
   - unless @project.started_on.blank?  
     .field
       = f.label :target_completion_date
-      = f.date_select :target_completion_date
+      = f.date_select :target_completion_date, {}, :class=>"span1"
   .actions
     = f.submit 'Save'
