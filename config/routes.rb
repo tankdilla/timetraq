@@ -3,6 +3,7 @@ Timetraq::Application.routes.draw do
   get "admin/index"
 
   get "home/index"
+  get "home/tutorial"
   post "home/guest"
 
   devise_for :users

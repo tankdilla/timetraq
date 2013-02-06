@@ -30,8 +30,8 @@ class Goal
   
   validates_presence_of :started_on
   validates_presence_of :goal_type
-  validates_presence_of :goal_amount_score, :if => Proc.new { |goal| goal.goal_amount_duration.nil? }
-  validates_presence_of :goal_amount_duration, :if => Proc.new { |goal| goal.goal_amount_score.nil? }
+  #validates_presence_of :goal_amount_score, :if => Proc.new { |goal| goal.goal_amount_duration.nil? }
+  #validates_presence_of :goal_amount_duration, :if => Proc.new { |goal| goal.goal_amount_score.nil? }
   
   validates_uniqueness_of :name
   
@@ -128,23 +128,23 @@ class Goal
     when "days"
       goal_days = goal_amount_duration
       if current_dur[:days] >= goal_days
-        goal_string += "Goal has been met!"
+        goal_string += "Objective has been met!"
       end
     when "hours"
       goal_hours = goal_amount_duration
       if current_dur[:hours] >= goal_hours
-        goal_string += "Goal has been met!"
+        goal_string += "Objective has been met!"
       end
     when "minutes"
       goal_minutes = goal_amount_duration
       if current_dur[:minutes] >= goal_minutes
-        goal_string += "Goal has been met!"
+        goal_string += "Objective has been met!"
       end
     end
     
-    if goal_string != "Goal has been met!"
+    if goal_string != "Objective has been met!"
     
-      goal_string = "Goal: #{goal_amount_duration} #{goal_amount_unit}, Current duration: "
+      goal_string = "Objective: #{goal_amount_duration} #{goal_amount_unit}, Current duration: "
       if goal_amount_unit == "days"
         goal_string += "#{current_dur[:days]} days, #{current_dur[:hours]} hours, #{current_dur[:minutes]} minutes"
       elsif goal_amount_unit == "hours"
@@ -174,7 +174,7 @@ class Goal
       unless points_needed <= 0
         "You need #{points_needed} point(s) to reach your goal."
       else
-        "Goal has been met!"
+        "Objective has been met!"
       end
     elsif !@goal.goal_amount_duration.blank?
       

@@ -10,7 +10,7 @@
     = @goal.notes
 
 %p
-  %b Goal started on:
+  %b Objective started on:
   = format_date(@goal.started_on || Date.today)
 
 - if !@goal.target_completion_date.blank?
@@ -19,11 +19,11 @@
     = @goal.target_completion_date
 
 %p
-  %b Goal Type:
+  %b Objective Type:
   = @goal.goal_type
 - if @goal.goal_type == "recurring"
   %p
-    Goal checked every
+    Objective checked every
     = @goal.goal_frequency
     = @goal.goal_frequency_unit
 - if @goal.goal_type == "project-based"
@@ -32,7 +32,7 @@
 
 - if !@goal.goal_amount_score.blank?
   %p
-    Goal Score:
+    Objective Score:
     = @goal.goal_amount_score
   %p
     Current Score:
@@ -43,11 +43,11 @@
     point(s) to reach your goal.
   - else
     %h3
-      Goal has been met!
+      Objective has been met!
     
 - elsif !@goal.goal_amount_duration.blank?
   %p
-    Goal Duration:
+    Objective Duration:
     = @goal.goal_amount_duration
     = @goal.goal_amount_unit
 
@@ -56,7 +56,7 @@
   - if @tracked_activities.empty?
     None. Create an 
     = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
-    to link to your goal.
+    tied to your objective.
   %ul
     - @tracked_activities.each do |a|
       = link_to a.description, [a.user, a]
@@ -82,13 +82,13 @@
 \|
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
 \|
-= link_to 'Back to Goals', user_goals_path(@user)
+= link_to 'Back to Objectives', user_goals_path(@user)
 -if !@goal.project.nil?
   \|
   = link_to 'Back to Project', user_project_path(@user, @goal.project)
 \|
 = link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)
 \|
-= link_to 'Mark/Unmark Goal as Completed', edit_user_goal_path(@user, @goal, :completed=>true)
+= link_to 'Mark/Unmark Objective as Completed', edit_user_goal_path(@user, @goal, :completed=>true)
 \|
-= link_to 'Delete Goal', [@user, @goal], :confirm => 'Are you sure?', :method => :delete
+= link_to 'Delete Objective', [@user, @goal], :confirm => 'Are you sure?', :method => :delete

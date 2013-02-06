@@ -48,6 +48,7 @@ class User
   embeds_many :tags
   
   before_create :set_defaults
+  after_create  :create_default_tags
   
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -194,9 +195,6 @@ class User
   def demo_data
     #clear user data
     clear_data
-    tags.create!(description: "Productive", classification: 1)
-    tags.create!(description: "Neutral", classification: 0)
-    tags.create!(description: "Non-Productive", classification: -1)
     #create initial tags, test activity, goal, project
   end
   
@@ -206,6 +204,13 @@ class User
     goals.destroy_all
     activities.destroy_all
     tags.destroy_all
+    create_default_tags
+  end
+  
+  def create_default_tags
+    tags.create!(description: "Productive", classification: 1)
+    tags.create!(description: "Neutral", classification: 0)
+    tags.create!(description: "Non-Productive", classification: -1)
   end
   
 end

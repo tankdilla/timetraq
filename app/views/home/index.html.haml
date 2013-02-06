@@ -2,6 +2,21 @@
 
 %p Manage your time and projects better
 
+%h2 The Problem
 %p
-  = button_to "Log In", new_user_session_path
-  = button_to "Enter as guest", home_guest_path
+  You have multiple projects you want/need to get done.  You get bogged down with work, life, or anything else and these projects fall by the wayside.  
+%h2 The Solution
+%p  
+  This app will help you keep track of your projects, by setting small goals for each step toward completing it.
+%p
+  You can also set up email reminders that give you a rundown of your projects and the subgoals you have set for them.
+%p
+  For a demonstration,
+  = link_to "go to the tutorial.", home_tutorial_path
+%p
+  To get started
+  = link_to "Create a profile,", new_user_registration_path
+  = link_to "Log In", new_user_session_path
+  \,
+  or 
+  = link_to "give it a test drive", home_guest_path, :method=>:post

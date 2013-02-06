@@ -54,7 +54,7 @@ class GoalsController < ApplicationController
   # POST /goals.json
   def create
     @goal = @user.goals.new(params[:goal])
-    
+=begin    
     if params[:goal_amount].blank?
       @goal.errors[:base] << "Select score or duration for setting goal."
     elsif params[:goal_amount] == "score"
@@ -74,7 +74,7 @@ class GoalsController < ApplicationController
         @goal.goal_amount_score = nil
       end
     end
-    
+=end    
     if @goal.goal_type == 'recurring'
       case params[:goal_frequency]
       when "daily"
