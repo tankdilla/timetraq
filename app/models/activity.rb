@@ -15,8 +15,12 @@ class Activity
   
   def set_defaults
     self._id = description.gsub(" ", "_")
+
+    if default_tag = @user.tags.where(classification: 1).first
+      self.tag(default_tag.id)
+    end
   end
-  
+
   def allows_components?
     false #logic here to determine whether to show component-related links
   end
@@ -64,12 +68,12 @@ class Activity
 
   def tag(tag_id)
     tag_ids << tag_id
-    self.save!
+    #self.save!
   end
 
   def untag(tag_id)
     tag_index = self.tag_ids.index(params[:tag][:id])
     self.tag_ids.delete_at(tag_index)
-    self.save!
+    #self.save!
   end
 end
