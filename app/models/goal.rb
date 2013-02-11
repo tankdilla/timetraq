@@ -25,8 +25,8 @@ class Goal
   
   embedded_in :user
   
-  scope :in_progress, where(:completion_date.exists => false)
-  scope :completed, where(:completion_date.exists => true)
+  scope :in_progress, where(:completed_on.exists => false)
+  scope :completed, where(:completed_on.exists => true)
   
   validates_presence_of :started_on
   validates_presence_of :goal_type
@@ -181,5 +181,9 @@ class Goal
       
     end
  
+  end
+  
+  def complete?
+    !completed_on.nil?
   end
 end

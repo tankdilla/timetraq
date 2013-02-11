@@ -15,12 +15,17 @@
   %p
     %b Target completion date:
     = format_date @project.target_completion_date
--if !@project.goals.blank?
-  Objectives:
-  %ul
-    - @project.goals.each do |g|
-      %li
-        = link_to g.name, user_goal_path(@user, g)
+%p
+  -if !@project.goals.completed.blank?
+    Completed Objectives:
+    = render :partial => "goals/list_goals", :locals=>{:goals=>@project.goals.completed}
+%p
+  -if !@project.goals.in_progress.blank?
+    Objectives in progress:
+    = render :partial => "goals/list_goals", :locals=>{:goals=>@project.goals.in_progress}
+  -else
+    Create a new
+    = link_to 'objective.', new_user_project_goal_path(@user, @project)
 
 - if @project.started_on.blank?
   = link_to 'Edit/Start Project', edit_user_project_path(@user, @project)

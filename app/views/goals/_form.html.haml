@@ -29,7 +29,7 @@
         = f.datetime_select :target_completion_date
   .field
     = f.label "Start tracking goal on:"
-    = f.datepicker :started_on, :dateFormat => "mm/dd/yy"
+    = f.datepicker :started_on, :dateFormat => "yy-mm-dd"
   .field
     .recurring_fields
       = f.label "Set frequency for evaluating goal: "
@@ -70,7 +70,7 @@
       .completed_on
         %p
           Completed on:
-          = f.datepicker :completed_on, :dateFormat => "mm/dd/yy"
+          = f.datepicker :completed_on, :dateFormat => "yy-mm-dd"
         
   .actions
     = f.submit 'Save'

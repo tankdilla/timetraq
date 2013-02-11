@@ -25,6 +25,11 @@
 %p
   %b Objective Type:
   = @goal.goal_type
+- if @goal.complete?
+  %p
+    %b
+      Objective completed on
+      = format_date @goal.completed_on
 - if @goal.goal_type == "recurring"
   %p
     Objective checked every
@@ -61,22 +66,26 @@
         - unless a.entries.empty?
           %br
           = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries}
-%p
-  Create an 
-  = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
-  tied to your objective.
+
+- unless @goal.complete?  
+  %p
+    Create an 
+    = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
+    tied to your objective.
 
 = link_to 'Home', user_path(@user)
 \|
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
-\|
-= link_to 'Back to Objectives', user_goals_path(@user)
 -if !@goal.project.nil?
   \|
   = link_to 'Back to Project', user_project_path(@user, @goal.project)
 \|
-= link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)
-\|
-= link_to 'Mark/Unmark Objective as Completed', edit_user_goal_path(@user, @goal, :completed=>true)
-\|
-= link_to 'Delete Objective', [@user, @goal], :confirm => 'Are you sure?', :method => :delete
+= link_to 'Non-project Objectives', user_goals_path(@user)
+
+- unless @goal.complete?
+  \|
+  = link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)
+  \|
+  = link_to 'Mark/Unmark Objective as Completed', edit_user_goal_path(@user, @goal, :completed=>true)
+  \|
+  = link_to 'Delete Objective', [@user, @goal], :confirm => 'Are you sure?', :method => :delete
