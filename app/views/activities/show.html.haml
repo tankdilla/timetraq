@@ -1,55 +1,41 @@
 %p#notice= notice
 
+- unless @activity.goals_tracking_this_activity.blank?
+  %b Goal(s):
+  %ul
+    - @activity.goals_tracking_this_activity.each do |g|
+      %li
+        = link_to g.name, [g.user, g]
 %p
   %b Activity:
   = @activity.description
-%p
-  %b Activity score:
-  = @activity.activity_score
+/ %p
+/   %b Activity score:
+/   = @activity.activity_score
   
 - unless @components.blank?
   Activity Components
   = render :partial => 'components/list_components', :locals=>{:components=>@components}
 
 - unless @activity.entries.blank?
-  Recent Activity Entries
+  Recent Entries
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
-
-- unless @activity.goals_tracking_this_activity.blank?
-  Linked to goal:
-  %ul
-    - @activity.goals_tracking_this_activity.each do |g|
-      %li
-        = link_to g.name, [g.user, g]
+%p
+  = link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)
 Tags:
 - @applied_tags.each do |tag|
   = link_to tag.description, [tag.user, tag]
 
 %p
-- unless @unapplied_tags.blank? 
-  = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
-    Add tag
-    = collection_select :tag, :id, @unapplied_tags, :id, :description
-    
-    = f.submit 'Tag'
-    
-/- unless @applied_tags.blank? 
-/  = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
-/    Remove tag
-/    = hidden_field_tag :untag, 'true'
-/    = collection_select :tag, :id, @applied_tags, :id, :description
-/    
-/    = f.submit 'UnTag'
-%p
 = link_to 'Home', user_path(@user)
 \|
 = link_to 'Edit', edit_user_activity_path(@user,@activity)
-\|
-= link_to 'Destroy', user_activity_path(@user, @activity), :confirm => 'Are you sure?', :method => :delete
-\|
-= link_to 'Activity List', user_activities_path(@user)
-\|
-= link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)
+/\|
+/= link_to 'Destroy', user_activity_path(@user, @activity), :confirm => 'Are you sure?', :method => :delete
+/\|
+/= link_to 'Activity List', user_activities_path(@user)
+/\|
+/= link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)
 
 -if @activity.allows_components?
   \|

@@ -50,18 +50,18 @@
       Every
       = f.text_field :goal_frequency, {:maxlength=>3, :size=>3}
       = select :frequency, :other_frequency_unit, [["days",1], ["weeks",2], ["months",3]]
-  = unless @goal.new_record?
-    .field
-      = f.label "Set goal by score or amount of time spent on activities"
-      %p
-      = radio_button_tag :goal_amount, :score, !@goal.goal_amount_score.blank?
-      Score: 
-      = f.text_field :goal_amount_score, {:maxlength=>3, :size=>3}
-      %p
-      = radio_button_tag :goal_amount, :duration, !@goal.goal_amount_duration.blank?
-      Duration: 
-      = f.text_field :goal_amount_duration, {:maxlength=>3, :size=>3}
-      = f.select :goal_amount_unit, ["", "minutes", "hours", "days"]
+  /= unless @goal.new_record?
+  /  .field
+  /    = f.label "Set goal by score or amount of time spent on activities"
+  /    %p
+  /    = radio_button_tag :goal_amount, :score, !@goal.goal_amount_score.blank?
+  /    Score: 
+  /    = f.text_field :goal_amount_score, {:maxlength=>3, :size=>3}
+  /    %p
+  /    = radio_button_tag :goal_amount, :duration, !@goal.goal_amount_duration.blank?
+  /    Duration: 
+  /    = f.text_field :goal_amount_duration, {:maxlength=>3, :size=>3}
+  /    = f.select :goal_amount_unit, ["", "minutes", "hours", "days"]
   - if params[:completed] == "true"
     .field
       %p

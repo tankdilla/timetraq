@@ -16,6 +16,7 @@ class GoalsController < ApplicationController
   # GET /goals/1.json
   def show
     @goal = @user.goals.find(params[:id])
+
     @tracked_activities = @goal.tracked_activities
     @untracked_activities = @goal.untracked_activities
 
@@ -47,6 +48,9 @@ class GoalsController < ApplicationController
   def edit
     @goal = @user.goals.find(params[:id])
     @activities = @user.activities
+
+    @tracked_activities = @goal.tracked_activities
+    @untracked_activities = @goal.untracked_activities
     
   end
 

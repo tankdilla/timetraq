@@ -17,10 +17,10 @@ class ActivitiesController < ApplicationController
   def show
     @activity = @user.activities.find(params[:id])
     @components = @activity.components
-    
+
     @unapplied_tags = @user.tags.nin(id: @activity.tag_ids)
     @applied_tags = @user.tags.in(id: @activity.tag_ids)
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @activity }
@@ -41,6 +41,9 @@ class ActivitiesController < ApplicationController
   # GET /activities/1/edit
   def edit
     @activity = @user.activities.find(params[:id])
+
+    @unapplied_tags = @user.tags.nin(id: @activity.tag_ids)
+    @applied_tags = @user.tags.in(id: @activity.tag_ids)
   end
 
   # POST /activities

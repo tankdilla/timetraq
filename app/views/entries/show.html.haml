@@ -8,9 +8,11 @@
   %p
     %b End Time:
     = @entry.end_time
-%p
-  %b Duration
-  = @entry.duration_string
+
+- unless @entry.duration_string.blank?
+  %p
+    %b Duration
+    = @entry.duration_string
 
 - if !@entry.note.blank?
   %p

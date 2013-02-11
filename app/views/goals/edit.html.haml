@@ -4,6 +4,21 @@
 
 = render 'form'
 
+- if !@untracked_activities.blank?
+  = form_for :activity, :url => user_goal_path(@user, @goal), :method => :put do |f|
+    Track activity
+    = collection_select :activity, :id, @untracked_activities, :id, :description
+    
+    = f.submit 'Track'
+
+- if !@tracked_activities.blank?
+  = form_for :activity, :url => user_goal_path(@user, @goal), :method => :put do |f|
+    Un-track activity
+    = hidden_field_tag :untrack, 'true'
+    = collection_select :activity, :id, @tracked_activities, :id, :description
+    
+    = f.submit 'Un-track'
+
 = link_to 'Show', [@user, @goal]
 \|
 = link_to 'Back', user_goals_path(@user)

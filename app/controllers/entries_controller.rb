@@ -27,7 +27,11 @@ class EntriesController < ApplicationController
   # GET /entries/new.json
   def new
     @entry = @activity.entries.new
-    @entry.start_time = session[:day]
+    @entry.start_time = Time.now
+
+    if @activity.tracked_by_goal?
+      @entry.toward_goal = @activity.goals_tracking_this_activity.first.id
+    end
 
     respond_to do |format|
       format.html # new.html.erb

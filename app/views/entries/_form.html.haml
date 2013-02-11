@@ -6,24 +6,26 @@
         - @entry.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :start_time
-    = f.datetime_select :start_time
+  / .field
+  /   = f.label :start_time
+  /   = f.datetime_select :start_time
+  = f.hidden_field :start_time
   .field
     = f.label :note
     = f.text_field :note
-  Duration:
-  .field
-    = f.label :hours
-    = f.text_field :hours, :maxlength=>2, :size=>2
-    = f.label :minutes
-    = f.text_field :minutes, :maxlenght=>2, :size=>2
-  .field
-    = f.label :score
-    = f.number_field :score
+  / Duration:
+  / .field
+  /   = f.label :hours
+  /   = f.text_field :hours, :maxlength=>2, :size=>2
+  /   = f.label :minutes
+  /   = f.text_field :minutes, :maxlenght=>2, :size=>2
+  / .field
+  /   = f.label :score
+  /   = f.number_field :score
   - if @activity.tracked_by_goal?
-    .field
-      = f.label "Apply toward goal: "
-      = f.collection_select :toward_goal, @activity.goals_tracking_this_activity, :id, :name, {:include_blank=>true}
+    = f.hidden_field :toward_goal
+  /   .field
+  /     = f.label "Apply toward goal: "
+  /     = f.collection_select :toward_goal, @activity.goals_tracking_this_activity, :id, :name, {:include_blank=>true}
   .actions
     = f.submit 'Save'

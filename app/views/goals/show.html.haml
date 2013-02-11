@@ -1,7 +1,11 @@
 %p#notice= notice
 
+- if @goal.goal_type == "project-based"
+  %b Project:
+  = link_to @goal.project.name, [@goal.user, @goal.project]
+
 %p
-  %b Name:
+  %b Objective:
   = @goal.name
 
 - if !@goal.notes.blank?
@@ -9,14 +13,14 @@
     %b Additional notes:
     = @goal.notes
 
-%p
-  %b Objective started on:
-  = format_date(@goal.started_on || Date.today)
+/ %p
+/   %b Objective started on:
+/   = format_date(@goal.started_on || Date.today)
 
-- if !@goal.target_completion_date.blank?
-  %p
-    %b Target completion date:
-    = @goal.target_completion_date
+/ - if !@goal.target_completion_date.blank?
+/   %p
+/     %b Target completion date:
+/     = @goal.target_completion_date
 
 %p
   %b Objective Type:
@@ -26,9 +30,6 @@
     Objective checked every
     = @goal.goal_frequency
     = @goal.goal_frequency_unit
-- if @goal.goal_type == "project-based"
-  Linked to:
-  = link_to @goal.project.name, [@goal.user, @goal.project]
 
 - if !@goal.goal_amount_score.blank?
   %p
@@ -51,32 +52,19 @@
     = @goal.goal_amount_duration
     = @goal.goal_amount_unit
 
+- unless @tracked_activities.empty?  
+  %p
+    Currently tracking activities:
+    %ul
+      - @tracked_activities.each do |a|
+        = link_to a.description, [a.user, a]
+        - unless a.entries.empty?
+          %br
+          = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries}
 %p
-  Currently tracking activities:
-  - if @tracked_activities.empty?
-    None. Create an 
-    = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
-    tied to your objective.
-  %ul
-    - @tracked_activities.each do |a|
-      = link_to a.description, [a.user, a]
-      %br
-        = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries}
-
-- if !@untracked_activities.blank?
-  = form_for :activity, :url => user_goal_path(@user, @goal), :method => :put do |f|
-    Track activity
-    = collection_select :activity, :id, @untracked_activities, :id, :description
-    
-    = f.submit 'Track'
-
-- if !@tracked_activities.blank?
-  = form_for :activity, :url => user_goal_path(@user, @goal), :method => :put do |f|
-    Un-track activity
-    = hidden_field_tag :untrack, 'true'
-    = collection_select :activity, :id, @tracked_activities, :id, :description
-    
-    = f.submit 'Un-track'
+  Create an 
+  = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
+  tied to your objective.
 
 = link_to 'Home', user_path(@user)
 \|

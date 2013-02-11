@@ -1,22 +1,22 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b Project:
   = @project.name
   
-%p
-  %b Started on:
-  - unless @project.started_on.blank?
-    = format_date(@project.started_on)
-  - else
-    Project pending
+/ %p
+/   %b Started on:
+/   - unless @project.started_on.blank?
+/     = format_date(@project.started_on)
+/   - else
+/    Project pending
     
 - unless @project.target_completion_date.blank?
   %p
     %b Target completion date:
     = format_date @project.target_completion_date
 -if !@project.goals.blank?
-  Project Goals:
+  Objectives:
   %ul
     - @project.goals.each do |g|
       %li
