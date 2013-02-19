@@ -1,0 +1,32 @@
+%p#notice= notice
+
+%p
+  %b Username:
+  = @profile.user.name
+  
+%p
+  %b My time is worth:
+  = "$#{@profile.goal_worth_per_hour} per hour"
+%p
+  %b Hours accounting for work:
+  = @profile.hours_worked
+  
+%p
+  %b Hours accounting for sleep:
+  = @profile.hours_sleep
+  
+%p
+  %b Hours accounting for miscellaneous things:
+  = @profile.hours_misc
+%p
+  %b 
+    Available hours to make worth
+    = @profile.goal_worth_per_hour
+    per hour: 
+    = @profile.hours_available
+  
+= link_to 'Home', user_profiles_path(@user)
+\|
+= link_to 'Add a goal', new_user_goal_path(@user, @profile)
+\|
+= link_to 'Delete Profile', user_profiles_path, :confirm => 'Are you sure?', :method => :delete

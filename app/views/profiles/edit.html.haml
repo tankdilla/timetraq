@@ -1,0 +1,9 @@
+%h3 
+  = @user.name
+  profile
+
+= render 'form'
+
+= link_to 'Show', [@user, @profile]
+\|
+= link_to 'Home', user_path(@user)

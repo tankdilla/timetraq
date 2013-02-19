@@ -47,6 +47,8 @@ class User
   embeds_many :projects
   embeds_many :tags
   
+  embeds_one :profile
+  
   before_create :set_defaults
   after_create  :create_default_tags
   

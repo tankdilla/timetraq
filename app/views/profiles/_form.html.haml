@@ -1,0 +1,32 @@
+= form_for [@user, @profile] do |f|
+  -if @profile.errors.any?
+    #error_explanation
+      %h2= #{pluralize(@profile.errors.count, error)} prohibited this profile from being saved:
+      %ul
+        - @profile.errors.full_messages.each do |msg|
+          %li= msg
+  
+  .big_letter_field
+    My time is worth
+    = text_field_tag :goal_worth, nil, :class=>'span1'
+    dollars per hour (This should be your goal)
+  .big_letter_field
+    On average I work
+    = f.text_field :hours_worked, :class=>'span1'
+    hours per week.
+  .big_letter_field
+    On average I sleep
+    = f.text_field :hours_sleep, :class=>'span1'
+    hours per week.
+  .big_letter_field
+    Miscellaneous time
+    .smaller_text
+      *This factors in transit to/from work, picking up kids, and other miscellaneous unavoidable tasks where my time is tied up
+    = f.text_field :hours_misc, :class=>'span1'
+    hours per week.
+  .big_letter_field
+    Given the above factors, I have
+    = f.text_field :hours_available, :class=>'span1'
+    hours to make my time worth as much as possible
+  .actions
+    = f.submit 'Save'

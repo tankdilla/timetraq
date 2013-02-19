@@ -13,6 +13,8 @@ Timetraq::Application.routes.draw do
       get 'change_date'
     end
     
+    resource :profiles
+    
     resources :projects do
       resources :goals, :only=>['new'] #only for the resource url, passing the project to the goal
     end
