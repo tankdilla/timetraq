@@ -1,4 +1,4 @@
-= form_for [@user, @profile] do |f|
+= form_for @profile, :url=>path_var do |f|
   -if @profile.errors.any?
     #error_explanation
       %h2= #{pluralize(@profile.errors.count, error)} prohibited this profile from being saved:
@@ -8,7 +8,7 @@
   
   .big_letter_field
     My time is worth
-    = text_field_tag :goal_worth, nil, :class=>'span1'
+    = text_field_tag :goal_worth, params[:goal_worth], :class=>'span1'
     dollars per hour (This should be your goal)
   .big_letter_field
     On average I work

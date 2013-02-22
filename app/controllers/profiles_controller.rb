@@ -33,6 +33,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1/edit
   def edit
     @profile = @user.profile || Profile.new
+    params[:goal_worth] = @profile.goal_worth_per_hour
   end
 
   # POST /profiles
@@ -67,7 +68,7 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.json
   def update
-    @profile = @user.profiles.find(params[:id])
+    @profile = @user.profile
     @profile.update_attributes(params[:profile])
     if params["starting"] == "pending"
       @profile.started_on = nil
@@ -76,7 +77,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to [@user, @profile], notice: 'Profile was successfully updated.' }
+        format.html { redirect_to user_profile_path, notice: 'Profile was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

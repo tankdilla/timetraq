@@ -1,6 +1,5 @@
-%b Profile for
-= @user.name
+%b= "Profile for #{@user.name}"
 
-= render 'form'
+= render :partial=>'form', :locals=>{:path_var=>user_profiles_path(@user)}
 
 = link_to 'Back', user_path(@user)

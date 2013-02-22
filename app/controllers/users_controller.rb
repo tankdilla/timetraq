@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    #redirect_to new_user_profiles_path if @user.profile.nil?
     
     if params[:date_change] && params[:date_change][:date]
       if params[:date_change][:date].split("/").size > 1

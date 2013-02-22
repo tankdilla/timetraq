@@ -4,18 +4,22 @@
   %b
     = "#{@user.name} (#{@user.email})"
     - if @user.profile.nil?
+      \|
       = link_to "Create Profile", new_user_profiles_path(@user)
     - else
+      \|
       = link_to "Edit Profile", edit_user_profiles_path(@user)
-
+    \|
+    = link_to "Weekly Summary", user_path(@user, :summary=>true)
 - if @user.projects.empty?
   %p= link_to "Start a new project", new_user_project_path(@user)
 - else
   %p Projects
   = render :partial => 'projects/list_projects', :locals=>{:projects => @user.projects}
 
-= link_to "Edit Profile", edit_user_profiles_path(@user)
-\|
+- unless @user.profile.nil?
+  = link_to "Profile", user_profiles_path(@user)
+  \|
 = link_to 'New Project', new_user_project_path(@user)
 \|
 = link_to 'Tags', user_tags_path(@user)

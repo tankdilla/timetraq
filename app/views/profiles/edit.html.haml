@@ -2,8 +2,8 @@
   = @user.name
   profile
 
-= render 'form'
+= render :partial=>'form', :locals=>{:path_var=>user_profiles_path(@user, @profile)}  
 
-= link_to 'Show', [@user, @profile]
+= link_to 'Show', user_profiles_path(@user)
 \|
 = link_to 'Home', user_path(@user)

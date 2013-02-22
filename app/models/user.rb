@@ -206,6 +206,7 @@ class User
     goals.destroy_all
     activities.destroy_all
     tags.destroy_all
+    profile.destroy unless profile.nil?
     create_default_tags
   end
   

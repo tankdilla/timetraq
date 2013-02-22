@@ -7,6 +7,8 @@ class Profile
   field :hours_misc
   field :hours_available
   
+  field :send_notifications, type: Boolean
+  
   embedded_in :user
   
   def goal_worth_per_hour

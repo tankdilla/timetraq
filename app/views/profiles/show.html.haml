@@ -25,8 +25,10 @@
     per hour: 
     = @profile.hours_available
   
-= link_to 'Home', user_profiles_path(@user)
+= link_to 'Home', user_path(@user)
 \|
 = link_to 'Add a goal', new_user_goal_path(@user, @profile)
+\|
+= link_to 'Edit', edit_user_profiles_path(@user)
 \|
 = link_to 'Delete Profile', user_profiles_path, :confirm => 'Are you sure?', :method => :delete

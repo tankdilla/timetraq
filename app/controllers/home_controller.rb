@@ -6,6 +6,9 @@ class HomeController < ApplicationController
   end
   
   def guest
+    
+    sign_out
+    session[:day] = Date.today
     guest_user = User.where(name: "guest").first
     if guest_user.nil?
       guest_user = User.new(name: "guest", email: "guest@email.com", password: "123456")
