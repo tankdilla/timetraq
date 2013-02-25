@@ -150,7 +150,6 @@ class GoalsController < ApplicationController
     
     respond_to do |format|
       if @goal.update_attributes(params[:goal])
-      debugger
         format.html { redirect_to [@user, @goal], notice: 'Goal was successfully updated.' }
         format.json { head :no_content }
       else

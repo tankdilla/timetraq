@@ -1,5 +1,3 @@
-%p#notice= notice
-
 - if @goal.goal_type == "project-based"
   %b Project:
   = link_to @goal.project.name, [@goal.user, @goal.project]
@@ -68,20 +66,17 @@
           = render :partial => 'entries/list_entries', :locals=>{:entries=>a.entries}
 
 - unless @goal.complete?  
-  %p
-    Create an 
-    = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
-    tied to your objective.
+  %ul
+    %li
+      = link_to 'Find resources'
+    %li
+      Create an 
+      = link_to 'activity', new_user_activity_path(@user, :goal_id=>@goal.id)
+      tied to your objective.
 
 = link_to 'Home', user_path(@user)
 \|
 = link_to 'Edit', edit_user_goal_path(@user, @goal)
--if !@goal.project.nil?
-  \|
-  = link_to 'Back to Project', user_project_path(@user, @goal.project)
-\|
-= link_to 'Non-project Objectives', user_goals_path(@user)
-
 - unless @goal.complete?
   \|
   = link_to 'Add Activity', new_user_activity_path(@user, :goal_id=>@goal.id)

@@ -3,7 +3,4 @@
     %p
       Project name:
       = p.name
-    = "Project Score: #{p.score(from_date, through_date)}"
-    %br
-    = "Project Duration: #{p.duration_string(p.duration(from_date, through_date))}"
     = render :partial => "goal_digest", :locals=>{:goals=>p.goals, :from_date=>from_date, :through_date=>through_date}

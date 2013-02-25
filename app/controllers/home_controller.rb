@@ -3,6 +3,12 @@ class HomeController < ApplicationController
     #@users = User.all
     
     session[:day] = Date.today
+    if user_signed_in?
+      redirect_to user_path(current_user.id)
+    else
+      render 'index2.haml'
+    end
+    
   end
   
   def guest

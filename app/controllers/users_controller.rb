@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     @from_date, @through_date = @user.get_digest_dates(session[:day])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render "show.html.haml" }# show.html.erb
       format.json { render json: @user }
     end
   end

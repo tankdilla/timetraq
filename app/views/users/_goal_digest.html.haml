@@ -3,8 +3,6 @@
     %p
       Goal: 
       = g.name
-      = "Score: #{g.current_score(g.entries(from_date, through_date))}"
-      = "Duration: #{g.duration_string(g.duration(g.entries(from_date, through_date)))}"
     - unless g.tracked_activities.empty?
       Goal-related activities
       %ul

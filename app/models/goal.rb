@@ -23,6 +23,8 @@ class Goal
   field :goal_frequency_unit #days, hours, minutes
   field :goal_frequency
   
+  field :priority, :default => 0
+  
   embedded_in :user
   
   scope :in_progress, where(:completed_on.exists => false)
@@ -65,6 +67,7 @@ class Goal
     if self.project_id.blank?
       self.project_id = nil
     end
+    
   end
   
   def tracked_activities

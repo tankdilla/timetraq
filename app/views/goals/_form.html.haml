@@ -15,7 +15,8 @@
     = f.text_field :notes, :class=>"span4"
   .field
     - if !@goal.project_id.blank?
-      = f.label "Objective type: Project"
+      Objective for:
+      = link_to @goal.project.name, [@user, @goal.project]
       = f.hidden_field :goal_type
     - else
       = f.label "Objective type: "
@@ -27,6 +28,9 @@
       .field
         = f.label :target_completion_date
         = f.datetime_select :target_completion_date
+  .field
+    = f.label :priority
+    = f.select(:priority, (0..5).to_a, {}, :class=>"span1")
   .field
     = f.label "Start tracking goal on:"
     = f.datepicker :started_on, :dateFormat => "yy-mm-dd"
