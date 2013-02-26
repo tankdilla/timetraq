@@ -7,7 +7,7 @@ class Activity
   
   validates_uniqueness_of :description, :message => "has already been entered"
 
-  embedded_in :user
+  belongs_to :user
   embeds_many :entries
   embeds_many :components
   

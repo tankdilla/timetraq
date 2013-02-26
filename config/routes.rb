@@ -25,8 +25,18 @@ Timetraq::Application.routes.draw do
     end
     
     resources :goals
-     
     resources :tags
+  end
+  
+  resources :projects, :only=>['show'] do
+    member do
+      get 'search'
+    end
+    resources :goals, :only=>['show'] do
+      resources :activities, :only=>['show']
+      
+      resources :components, :only=>['show']
+    end
   end
 
   # The priority is based upon order of creation:

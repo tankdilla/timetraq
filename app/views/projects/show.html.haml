@@ -27,6 +27,10 @@
     Create a new
     = link_to 'objective.', new_user_project_goal_path(@user, @project)
 
+%p
+  Suggest objectives related to
+  = link_to @project.name, [@user, @project]
+    
 - if @project.started_on.blank?
   = link_to 'Edit/Start Project', edit_user_project_path(@user, @project)
 - else

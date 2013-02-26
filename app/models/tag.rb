@@ -4,7 +4,9 @@ class Tag
   field :classification, type: Integer, :default=>0
   field :_id, type: String, default: ->{ description }
   
-  embedded_in :user
+  belongs_to :user
+  belongs_to :project
+  belongs_to :goal
   
   before_create :set_defaults
 

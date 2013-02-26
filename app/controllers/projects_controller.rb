@@ -15,8 +15,10 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = @user.projects.find(params[:id])
-
+    if @user
+      @project = @user.projects.find(params[:id])
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
@@ -27,6 +29,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = @user.projects.new
+    @project.viewable = 'private'
     
     respond_to do |format|
       format.html # new.html.erb
@@ -46,6 +49,8 @@ class ProjectsController < ApplicationController
     
     if params["starting"] == "pending"
       @project.started_on = nil
+    elsif params["starting"] == "today"
+      @project.started_on = Date.today
     end
 
     respond_to do |format|
@@ -89,6 +94,12 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to user_projects_url(@user) }
       format.json { head :no_content }
+    end
+  end
+  
+  def search
+    if params[:search]
+      
     end
   end
 end

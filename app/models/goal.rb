@@ -25,7 +25,12 @@ class Goal
   
   field :priority, :default => 0
   
-  embedded_in :user
+  field :viewable
+  
+  belongs_to :user
+  has_many :tags
+  
+  search_in :name, :tags => :description
   
   scope :in_progress, where(:completed_on.exists => false)
   scope :completed, where(:completed_on.exists => true)

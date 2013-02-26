@@ -39,3 +39,4 @@ gem 'jquery_datepicker'
 #gem "omniauth-facebook"
 gem "heroku"
 gem "resque"
+gem "mongoid_search"

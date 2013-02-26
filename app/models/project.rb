@@ -10,13 +10,19 @@ class Project
   field :completed_ind, type: Boolean
   field :completed_on, type: Date
   
-  field :tag_ids, type: Array, :default=>[]
+  field :viewable
   
-  embedded_in :user
+  #field :tag_ids, type: Array, :default=>[]
+  has_many :tags
+  
+  #embedded_in :user
+  belongs_to :user
   
   scope :in_progress, exists(completion_date: false)
   scope :completed, exists(completion_date: true)
   scope :started, exists(started_on: true)
+  
+  search_in :name, :tags => :description
 
   def goals #a project has goals, but not embedded
     @user.goals.where(project_id: id.to_s)

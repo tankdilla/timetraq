@@ -42,10 +42,14 @@ class User
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   attr_accessible :provider, :uid
 
-  embeds_many :activities
-  embeds_many :goals
-  embeds_many :projects
-  embeds_many :tags
+  #embeds_many :activities
+  #embeds_many :goals
+  #embeds_many :projects
+  #embeds_many :tags
+  has_many :projects
+  has_many :goals
+  has_many :tags
+  has_many :activities
   
   embeds_one :profile
   
