@@ -1,0 +1,20 @@
+= form_for [@user, @assignment] do |f|
+  -if @assignment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@assignment.errors.count, "error")} prohibited this assignment from being saved:"
+      %ul
+        - @assignment.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :description
+    = f.text_field :description
+  = hidden_field_tag :goal_id, params[:goal_id]
+  .field
+    = f.label "Assign to user by email"
+    = f.text_field :assigned_to_email_address
+  .field
+    = f.label "Assign to contact"
+    = f.collection_select(:assigned_to_user, @user.contacts, :id, :name)
+  .actions
+    = f.submit 'Save'

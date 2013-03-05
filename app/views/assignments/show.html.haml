@@ -1,0 +1,42 @@
+%p#notice= notice
+
+- unless @assignment.goals_tracking_this_assignment.blank?
+  %b Goal(s):
+  %ul
+    - @assignment.goals_tracking_this_assignment.each do |g|
+      %li
+        = link_to g.name, [g.user, g]
+%p
+  %b Activity:
+  = @assignment.description
+/ %p
+/   %b Activity score:
+/   = @assignment.assignment_score
+  
+- unless @components.blank?
+  Activity Components
+  = render :partial => 'components/list_components', :locals=>{:components=>@components}
+
+- unless @assignment.entries.blank?
+  Recent Entries
+  = render :partial => 'entries/list_entries', :locals=>{:entries=>@assignment.entries}
+%p
+  = link_to 'Log Entry', new_user_assignment_entry_path(@user, @assignment)
+Tags:
+- @applied_tags.each do |tag|
+  = link_to tag.description, [tag.user, tag]
+
+%p
+= link_to 'Home', user_path(@user)
+\|
+= link_to 'Edit', edit_user_assignment_path(@user,@assignment)
+/\|
+/= link_to 'Destroy', user_assignment_path(@user, @assignment), :confirm => 'Are you sure?', :method => :delete
+/\|
+/= link_to 'Activity List', user_assignments_path(@user)
+/\|
+/= link_to 'Log Entry', new_user_assignment_entry_path(@user, @assignment)
+
+-if @assignment.allows_components?
+  \|
+  = link_to 'Add Activity Component', new_user_assignment_component_path(@user, @assignment)

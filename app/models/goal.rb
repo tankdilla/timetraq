@@ -1,6 +1,7 @@
 class Goal
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
+  include Mongoid::Search
   
   field :name
   field :_id, type: String, default: ->{ name }
@@ -193,5 +194,16 @@ class Goal
   
   def complete?
     !completed_on.nil?
+  end
+  
+  def self.priorities
+    [
+      %w(Default 0),
+      %w(Elevated 1),
+      %w(High 2),
+      %w(Higher 3),
+      %w(Higherer 4),
+      %w(Critical 5)
+    ]
   end
 end

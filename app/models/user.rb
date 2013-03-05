@@ -50,6 +50,11 @@ class User
   has_many :goals
   has_many :tags
   has_many :activities
+  has_many :assignments
+  
+  has_many :groups
+  
+  embeds_many :contacts
   
   embeds_one :profile
   

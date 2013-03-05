@@ -1,0 +1,11 @@
+%b
+  assignments
+
+%ul
+- @assignments.each do |assignment|
+  %li
+    = link_to assignment.description, [assignment.user, assignment]
+
+%br
+
+= link_to 'Back to User', user_path(@user)

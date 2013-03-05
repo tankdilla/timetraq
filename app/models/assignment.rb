@@ -1,4 +1,4 @@
-class Activity
+class Assignment
   include Mongoid::Document
   field :description
   field :_id, type: String, default: ->{ description }
@@ -10,6 +10,8 @@ class Activity
   validates_uniqueness_of :description, :message => "has already been entered"
 
   belongs_to :user
+  belongs_to :contact
+  
   embeds_many :entries
   embeds_many :components
   
@@ -27,7 +29,7 @@ class Activity
     false #logic here to determine whether to show component-related links
   end
   
-  def activity_score
+  def assignment_score
     #score based on tags
     score = 0
     
@@ -45,9 +47,9 @@ class Activity
     user.normalize_duration(:days=>days, :hours=>hours, :minutes=>minutes)
   end
 
-  def goals_tracking_this_activity
+  def goals_tracking_this_assignment
     if !user.goals.blank?
-      user.goals.collect{|g| g if g.tracked_activity_ids.include?(self.id)}.compact
+      user.goals.collect{|g| g if g.tracked_assignment_ids.include?(self.id)}.compact
     else
       []
     end
@@ -56,12 +58,12 @@ class Activity
   def add_to_goal(goal_id)
     goal = user.goals.find(goal_id)
     unless goal.nil?
-      goal.track_activity(self.id)
+      goal.track_assignment(self.id)
     end
   end
 
   def tracked_by_goal?
-    !goals_tracking_this_activity.blank?
+    !goals_tracking_this_assignment.blank?
   end
   
   def goal_entries(goal_id)

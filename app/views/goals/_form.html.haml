@@ -30,7 +30,7 @@
         = f.datetime_select :target_completion_date
   .field
     = f.label :priority
-    = f.select(:priority, (0..5).to_a, {}, :class=>"span1")
+    = f.select(:priority, Goal.priorities, {}, :class=>"span2")
   .field
     = f.label "Start tracking goal on:"
     = f.datepicker :started_on, :dateFormat => "yy-mm-dd"

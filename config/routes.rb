@@ -1,5 +1,5 @@
 Timetraq::Application.routes.draw do
-  
+
   get "admin/index"
 
   get "home/index"
@@ -24,16 +24,28 @@ Timetraq::Application.routes.draw do
       resources :entries
     end
     
+    resources :assignments do
+      resources :components
+      resources :entries
+    end
+    
+    resources :contacts
+    
     resources :goals
     resources :tags
   end
+  
+  resources :groups
   
   resources :projects, :only=>['show'] do
     member do
       get 'search'
     end
+    
     resources :goals, :only=>['show'] do
       resources :activities, :only=>['show']
+      
+      resources :assignments, :only=>['show']
       
       resources :components, :only=>['show']
     end

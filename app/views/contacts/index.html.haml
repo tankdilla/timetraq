@@ -1,0 +1,23 @@
+%h4 
+  contacts for
+  = link_to @user.name, @user
+
+%table
+  %tr
+    %th Name
+    %th Email address
+    %th
+    %th
+    %th
+
+  - @contacts.each do |contact|
+    %tr
+      %td= contact.name
+      %td= contact.email_address
+      %td= link_to 'Show', [contact.user, contact]
+      %td= link_to 'Edit', edit_user_contact_path(contact.user, contact)
+      %td= link_to 'Destroy', [contact.user, contact], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Contact', new_user_contact_path(@user)

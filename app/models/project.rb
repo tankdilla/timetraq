@@ -1,6 +1,7 @@
 class Project
   include Mongoid::Document
   include Mongoid::MultiParameterAttributes
+  include Mongoid::Search
   
   field :name, type: String
   field :started_on, type: Date
@@ -25,7 +26,7 @@ class Project
   search_in :name, :tags => :description
 
   def goals #a project has goals, but not embedded
-    @user.goals.where(project_id: id.to_s)
+    user.goals.where(project_id: id.to_s)
   end
   
   def score(from_date, through_date)

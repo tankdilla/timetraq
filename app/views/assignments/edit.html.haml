@@ -1,0 +1,26 @@
+%h1 Editing assignment
+
+Tags:
+- @applied_tags.each do |tag|
+  = link_to tag.description, [tag.user, tag]
+  - unless tag == @applied_tags.last
+    \ -
+%p
+- unless @unapplied_tags.blank? 
+  = form_for :tag, :url => user_assignment_path(@user, @assignment), :method => :put do |f|
+    = collection_select :tag, :id, @unapplied_tags, :id, :description    
+    = f.submit 'Add Tag'
+    
+/- unless @applied_tags.blank? 
+/  = form_for :tag, :url => user_assignment_path(@user, @assignment), :method => :put do |f|
+/    Remove tag
+/    = hidden_field_tag :untag, 'true'
+/    = collection_select :tag, :id, @applied_tags, :id, :description
+/    
+/    = f.submit 'UnTag'
+
+= render 'form'
+
+= link_to 'Show', user_assignment_path(@user, @assignment)
+\|
+= link_to 'Back', user_activities_path(@user)
