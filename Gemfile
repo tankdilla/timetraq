@@ -34,6 +34,6 @@ gem 'thin'
 gem 'jquery_datepicker'
 #gem 'omniauth'
 #gem "omniauth-facebook"
-gem "heroku"
+#gem "heroku"
 gem "resque"
 gem "mongoid_search"
