@@ -20,7 +20,9 @@
 - unless @activity.entries.blank?
   Recent Entries
   = render :partial => 'entries/list_entries', :locals=>{:entries=>@activity.entries}
-%p
+
+- unless @activity.disable_entries
+  %p
   = link_to 'Log Entry', new_user_activity_entry_path(@user, @activity)
 Tags:
 - @applied_tags.each do |tag|

@@ -6,6 +6,7 @@ class Activity
   field :tag_ids, type: Array, :default=>[]
   field :assigned_to_email_address
   field :assigned_to_user
+  field :disable_entries, type: Boolean
   
   validates_uniqueness_of :description, :message => "has already been entered"
 
@@ -74,7 +75,7 @@ class Activity
   end
 
   def untag(tag_id)
-    tag_index = self.tag_ids.index(params[:tag][:id])
+    tag_index = self.tag_ids.index(tag_id)
     self.tag_ids.delete_at(tag_index)
     #self.save!
   end

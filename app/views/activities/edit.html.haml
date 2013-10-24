@@ -11,13 +11,13 @@ Tags:
     = collection_select :tag, :id, @unapplied_tags, :id, :description    
     = f.submit 'Add Tag'
     
-/- unless @applied_tags.blank? 
-/  = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
-/    Remove tag
-/    = hidden_field_tag :untag, 'true'
-/    = collection_select :tag, :id, @applied_tags, :id, :description
-/    
-/    = f.submit 'UnTag'
+- unless @applied_tags.blank? 
+  = form_for :tag, :url => user_activity_path(@user, @activity), :method => :put do |f|
+    Remove tag
+    = hidden_field_tag :untag, 'true'
+    = collection_select :tag, :id, @applied_tags, :id, :description
+
+    = f.submit 'UnTag'
 
 = render 'form'
 
