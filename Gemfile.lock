@@ -150,7 +150,7 @@ GEM
       fast-stemmer (~> 1.0.0)
       mongoid (>= 3.0.0)
     mono_logger (1.1.0)
-    moped (1.5.1)
+    moped (1.5.3)
     multi_json (1.7.9)
     multi_test (0.0.2)
     nokogiri (1.6.0)
